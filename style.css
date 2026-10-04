@@ -5,4 +5,6 @@
 :root[data-theme="chargers"]{--bg:#091b2c;--panel:#142e47;--ink:#f7faff;--muted:#b8cee1;--lime:#87dbff;--blue:#ffe17c;--line:#819bb1;--selected:#21475d;--input:#0b2033;--glow:#14638c66;--token:#173c54;--shadow:#3f89af}
 .local-tools{border-top:1px solid var(--line);margin-top:26px;padding-top:6px}.local-tools summary{font-size:14px;color:var(--ink)}.settings-title{font-size:22px;margin-top:12px}.theme-choices{border:0;margin:16px 0 0;padding:0;display:grid;gap:8px}.theme-choices legend{margin-bottom:10px;font-weight:750}.theme-choices button{text-align:left}.theme-choices button[aria-pressed="true"]{border-width:2px}.save-notice{border-left:3px solid var(--lime);padding:10px 12px;font-size:13px;color:var(--ink);background:var(--panel)}.saved-card h3{overflow-wrap:anywhere}.danger{color:#ffc6bc}.avatar{background:var(--selected);color:var(--lime)}.avatar.a1{background:var(--input);color:var(--blue)}.avatar.a2{background:var(--input);color:var(--ink)}
 
+.question-scope{margin:0 0 4px;line-height:1.5}.football-help{margin:0 0 10px}.football-help summary{color:var(--blue)}.football-help p{line-height:1.55}.qmeta .note{max-width:58%;overflow-wrap:anywhere}
+
 main{padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(40px + env(safe-area-inset-bottom));}
