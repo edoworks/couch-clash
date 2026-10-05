@@ -13,6 +13,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
   path=urllib.parse.unquote(urllib.parse.urlsplit(self.path).path)
   if not path.startswith(a.prefix):self.send_error(404);return
   name=path[len(a.prefix):]
+  if name in ['legacy','mnf-2026-10-05']:
+   self.send_response(301);self.send_header('Location',path+'/');self.end_headers();return
   if not name or name.endswith('/'):name+='index.html'
   body=state['files'].get(name)
   if body is None:self.send_error(404);return
