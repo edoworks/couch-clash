@@ -1,0 +1,61 @@
+{
+  "reviewed_utc": "2026-10-05T23:02:49.696552+00:00",
+  "base_commit": "2ddd9f3a55809c786e6970a3d3bc180826267cbe",
+  "branch": "release/mnf-2026-10-05",
+  "fixture": "nfl-2026-week04-atl-no",
+  "kickoff_utc": "2026-10-06T00:15:00Z",
+  "native_changed": false,
+  "backend_changed": false,
+  "old_store_writes": false,
+  "runtime_sha256": {
+    "index.html": "40e181deddedbae98fdaa6e5c3506798a2dada13b2742be3fb8c819da730fac6",
+    "home.js": "ba1f3468555074574479f220081bbf14ead688e0519bf7378e7af60e16ed7071",
+    "sw.js": "74443d5a417344e551e338bf0e7248cb4b5b265d14c44ddb6d91761d0d108e94",
+    "manifest.webmanifest": "f9071633c1ae1e3a7bb73868b87f740eeefce0b8a905ba8ae41c84fff7fe2ef2",
+    "legacy/index.html": "d9073d1ddc05fbbd4a3e035c931687d70fd4e480d75da98180d60f95a9dcf9e7",
+    "legacy/legacy.js": "0e9064fbbf9439c739c1f9298e8aedf14628f0f9eb4fc1c61f3cabdcd0870c6a",
+    "mnf-2026-10-05/index.html": "bf808f698b5176c6900c0650be48ce68554cc907665da903d76d59788c055411",
+    "mnf-2026-10-05/definitions.js": "cf6a27098e94456329e432282192b54835fee7dbf3208a80bb193d97c1c5cca6",
+    "mnf-2026-10-05/app.js": "851a9b59b852881b8db8b75dfcf47296106e179772f3710ccabdc17a15cd1e3f",
+    "mnf-2026-10-05/engagement.js": "476b8209780908d8a6288e777cded574eca89c05df3f9f1aadd63b6c8b720092",
+    "mnf-2026-10-05/style.css": "64d99a2722ac9a584153f5a1ed6572a57433291c1d0b1b693613127d15824e6d"
+  },
+  "logic": "passed; synthetic VM execution of actual candidate and legacy reader",
+  "browser": {
+    "passed": true,
+    "manual800": true,
+    "demoSharedTie": true,
+    "legacyByteEquality": true,
+    "legacyPrivacy": true,
+    "missingPicks": true,
+    "cutoff": true,
+    "readOnlyHistory": true,
+    "quotaFailure": true,
+    "offlineRoutes": true,
+    "keyboard": true,
+    "mobileWidths": [
+      390,
+      320
+    ],
+    "minimumControls44": true,
+    "errors": [],
+    "requestsExternal": []
+  },
+  "upgrade": {
+    "passed": true,
+    "from": "public-v4",
+    "to": "mnf-20261005-v1",
+    "legacyBytesPreserved": true,
+    "lockedAndDraftLabelsPreserved": true,
+    "allRoutesOffline": true,
+    "oldCachePresent": true
+  },
+  "deployment_prefix_tested": "/couch-clash/",
+  "release_status": "candidate; no merge or deployment",
+  "limits": [
+    "Physical iPhone/Safari/VoiceOver not tested",
+    "No fantasy lineup/player grading implemented",
+    "Browser and native storage remain separate",
+    "Cutoff uses local clock and manual host control, not trusted server authority"
+  ]
+}
