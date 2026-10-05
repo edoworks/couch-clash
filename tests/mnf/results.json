@@ -1,24 +1,24 @@
 {
-  "reviewed_utc": "2026-10-05T23:02:49.696552+00:00",
-  "base_commit": "2ddd9f3a55809c786e6970a3d3bc180826267cbe",
-  "branch": "release/mnf-2026-10-05",
+  "reviewed_utc": "2026-10-05T23:27:11.406116+00:00",
+  "base_commit": "b3621a98bfffe635f1dfed4d65f9eb3c53f0c24f",
+  "branch": "release/couch-scorecard",
   "fixture": "nfl-2026-week04-atl-no",
   "kickoff_utc": "2026-10-06T00:15:00Z",
   "native_changed": false,
   "backend_changed": false,
   "old_store_writes": false,
   "runtime_sha256": {
-    "index.html": "40e181deddedbae98fdaa6e5c3506798a2dada13b2742be3fb8c819da730fac6",
+    "index.html": "4315b515e6f480ac0fbc40f1dc92467eab2703bf104b3be906d2fb8be41c5c85",
     "home.js": "ba1f3468555074574479f220081bbf14ead688e0519bf7378e7af60e16ed7071",
-    "sw.js": "74443d5a417344e551e338bf0e7248cb4b5b265d14c44ddb6d91761d0d108e94",
+    "sw.js": "6b8b3811dee03e0ab7a83bf398253a983985e7fec2fc3945070e9155abb27ce3",
     "manifest.webmanifest": "f9071633c1ae1e3a7bb73868b87f740eeefce0b8a905ba8ae41c84fff7fe2ef2",
-    "legacy/index.html": "d9073d1ddc05fbbd4a3e035c931687d70fd4e480d75da98180d60f95a9dcf9e7",
+    "legacy/index.html": "a208ec3f02253ca2e21e12e2aba5281567abcb01937f633ccec286eaa0b4de62",
     "legacy/legacy.js": "0e9064fbbf9439c739c1f9298e8aedf14628f0f9eb4fc1c61f3cabdcd0870c6a",
     "mnf-2026-10-05/index.html": "bf808f698b5176c6900c0650be48ce68554cc907665da903d76d59788c055411",
     "mnf-2026-10-05/definitions.js": "cf6a27098e94456329e432282192b54835fee7dbf3208a80bb193d97c1c5cca6",
-    "mnf-2026-10-05/app.js": "851a9b59b852881b8db8b75dfcf47296106e179772f3710ccabdc17a15cd1e3f",
-    "mnf-2026-10-05/engagement.js": "476b8209780908d8a6288e777cded574eca89c05df3f9f1aadd63b6c8b720092",
-    "mnf-2026-10-05/style.css": "64d99a2722ac9a584153f5a1ed6572a57433291c1d0b1b693613127d15824e6d"
+    "mnf-2026-10-05/app.js": "7ea7622747b5ab94de69b1cd1b43a3d8f3d1a1c56edf96e50fd6799aa33e971b",
+    "mnf-2026-10-05/engagement.js": "d32d26c71877809f5568374b5c58012321836701e176a7137cdfbdbe34be37dc",
+    "mnf-2026-10-05/style.css": "7b0f9c850615c255ba79a1ca9b15694667887e88e6e27a838e02e08fcb96ad72"
   },
   "logic": "passed; synthetic VM execution of actual candidate and legacy reader",
   "browser": {
@@ -44,11 +44,19 @@
   "upgrade": {
     "passed": true,
     "from": "public-v4",
-    "to": "mnf-20261005-v1",
+    "to": "scorecard-20261005-v2",
     "legacyBytesPreserved": true,
     "lockedAndDraftLabelsPreserved": true,
     "allRoutesOffline": true,
-    "oldCachePresent": true
+    "stalledBodyFallback": true,
+    "oldCachePresent": true,
+    "oldCacheNames": [
+      "couch-clash-public-v4:http://127.0.0.1:5205/couch-clash/"
+    ],
+    "cacheNames": [
+      "couch-clash-public-v4:http://127.0.0.1:5205/couch-clash/",
+      "couch-clash-scorecard-20261005-v2:http://127.0.0.1:5205/couch-clash/"
+    ]
   },
   "deployment_prefix_tested": "/couch-clash/",
   "release_status": "candidate; no merge or deployment",
@@ -57,5 +65,93 @@
     "No fantasy lineup/player grading implemented",
     "Browser and native storage remain separate",
     "Cutoff uses local clock and manual host control, not trusted server authority"
-  ]
+  ],
+  "design": {
+    "passed": true,
+    "report": [
+      {
+        "width": 320,
+        "theme": "default",
+        "contrast": {
+          "primary": 5.927358302810454,
+          "body": 13.167747183912077,
+          "muted": 5.769729955518097
+        }
+      },
+      {
+        "width": 320,
+        "theme": "seahawks",
+        "contrast": {
+          "primary": 13.269035741995818,
+          "body": 16.853319390728352,
+          "muted": 10.79035310904099
+        }
+      },
+      {
+        "width": 320,
+        "theme": "chargers",
+        "contrast": {
+          "primary": 11.294203640879104,
+          "body": 16.661493738747563,
+          "muted": 10.752231200262951
+        }
+      },
+      {
+        "width": 390,
+        "theme": "default",
+        "contrast": {
+          "primary": 5.927358302810454,
+          "body": 13.167747183912077,
+          "muted": 5.769729955518097
+        }
+      },
+      {
+        "width": 390,
+        "theme": "seahawks",
+        "contrast": {
+          "primary": 13.269035741995818,
+          "body": 16.853319390728352,
+          "muted": 10.79035310904099
+        }
+      },
+      {
+        "width": 390,
+        "theme": "chargers",
+        "contrast": {
+          "primary": 11.294203640879104,
+          "body": 16.661493738747563,
+          "muted": 10.752231200262951
+        }
+      },
+      {
+        "width": 1180,
+        "theme": "default",
+        "contrast": {
+          "primary": 5.927358302810454,
+          "body": 13.167747183912077,
+          "muted": 5.769729955518097
+        }
+      },
+      {
+        "width": 1180,
+        "theme": "seahawks",
+        "contrast": {
+          "primary": 13.269035741995818,
+          "body": 16.853319390728352,
+          "muted": 10.79035310904099
+        }
+      },
+      {
+        "width": 1180,
+        "theme": "chargers",
+        "contrast": {
+          "primary": 11.294203640879104,
+          "body": 16.661493738747563,
+          "muted": 10.752231200262951
+        }
+      }
+    ],
+    "physicalDevice": false
+  },
+  "upgrade_note": "Corrected assertion checks actual old cache names and both rendered locked/draft labels. Full-body network timeout and forced 8-second body stall fallback passed twice. Earlier failed attempts excluded."
 }
