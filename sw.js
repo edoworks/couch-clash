@@ -6,7 +6,7 @@ async function completeResponse(request){const controller=new AbortController(),
 self.addEventListener('fetch',e=>{
  const u=new URL(e.request.url);if(e.request.method!=='GET'||u.origin!==location.origin||!u.href.startsWith(self.registration.scope))return;
  e.respondWith(completeResponse(e.request).catch(async()=>{const c=await caches.open(CACHE);const direct=await c.match(e.request,{ignoreSearch:true});if(direct)return direct;
- if(e.request.mode==='navigate'){const rel=u.pathname.slice(new URL(self.registration.scope).pathname.length);return (await c.match((rel==='mnf-2026-10-05'||rel.startsWith('mnf-2026-10-05/'))?'./mnf-2026-10-05/index.html':(rel==='legacy'||rel.startsWith('legacy/'))?'./legacy/index.html':'./index.html'))||Response.error();}return Response.error();}));
+ if(e.request.mode==='navigate'){const rel=u.pathname.slice(new URL(self.registration.scope).pathname.length);if(rel==='legacy'||rel==='mnf-2026-10-05'){const canonical=new URL(u);canonical.pathname+='/';return Response.redirect(canonical.href,302);}return (await c.match((rel==='mnf-2026-10-05'||rel.startsWith('mnf-2026-10-05/'))?'./mnf-2026-10-05/index.html':(rel==='legacy'||rel.startsWith('legacy/'))?'./legacy/index.html':'./index.html'))||Response.error();}return Response.error();}));
 });
 
 self.addEventListener('message',e=>{if(e.data==='COUCH_CACHE_VERSION'&&e.ports[0])e.ports[0].postMessage(CACHE);});

@@ -1,11 +1,14 @@
 """Loopback-only, in-memory static release swap. Never a production server."""
-import argparse,http.server,pathlib,mimetypes,urllib.parse,time
+import argparse,http.server,pathlib,mimetypes,urllib.parse,time,os
 p=argparse.ArgumentParser();p.add_argument('--baseline',required=True);p.add_argument('--candidate',required=True);p.add_argument('--port',type=int,default=5196);p.add_argument('--prefix',default='/');a=p.parse_args()
 def snapshot(root):
  root=pathlib.Path(root).resolve();data={}
- for file in root.rglob('*'):
-  if '.git' in file.parts or not file.is_file():continue
-  data[file.relative_to(root).as_posix()]=file.read_bytes()
+ for folder,dirs,files in os.walk(root):
+  dirs[:]=[d for d in dirs if d not in ['.git','docs','tests','node_modules']]
+  for name in files:
+   file=pathlib.Path(folder)/name
+   if file.suffix not in ['.html','.js','.css','.webmanifest','.svg','.png']:continue
+   data[file.relative_to(root).as_posix()]=file.read_bytes()
  return data
 old=snapshot(a.baseline);new=snapshot(a.candidate);state={'files':old,'stall':False}
 class Handler(http.server.BaseHTTPRequestHandler):

@@ -1,5 +1,5 @@
 {
-  "reviewed_utc": "2026-10-05T23:36:43.230892+00:00",
+  "reviewed_utc": "2026-10-05T23:48:00.678489+00:00",
   "base_commit": "b3621a98bfffe635f1dfed4d65f9eb3c53f0c24f",
   "branch": "release/couch-scorecard",
   "fixture": "nfl-2026-week04-atl-no",
@@ -10,7 +10,7 @@
   "runtime_sha256": {
     "index.html": "4315b515e6f480ac0fbc40f1dc92467eab2703bf104b3be906d2fb8be41c5c85",
     "home.js": "ba1f3468555074574479f220081bbf14ead688e0519bf7378e7af60e16ed7071",
-    "sw.js": "0aa861a8660f79dab70b947f716f4ace91518bcaf280612cc95a772213a8144c",
+    "sw.js": "8cbfb0165d0427e283a9a4d9709743261faf9290e896fd6b7db4817c2cbd6d9f",
     "manifest.webmanifest": "f9071633c1ae1e3a7bb73868b87f740eeefce0b8a905ba8ae41c84fff7fe2ef2",
     "legacy/index.html": "a208ec3f02253ca2e21e12e2aba5281567abcb01937f633ccec286eaa0b4de62",
     "legacy/legacy.js": "0e9064fbbf9439c739c1f9298e8aedf14628f0f9eb4fc1c61f3cabdcd0870c6a",
@@ -52,12 +52,13 @@
     "slashAndNoSlashOnlineOffline": true,
     "oldCachePresent": true,
     "oldCacheNames": [
-      "couch-clash-public-v4:http://127.0.0.1:5206/couch-clash/"
+      "couch-clash-public-v4:http://127.0.0.1:5208/couch-clash/"
     ],
     "cacheNames": [
-      "couch-clash-public-v4:http://127.0.0.1:5206/couch-clash/",
-      "couch-clash-scorecard-20261005-v2:http://127.0.0.1:5206/couch-clash/"
-    ]
+      "couch-clash-public-v4:http://127.0.0.1:5208/couch-clash/",
+      "couch-clash-scorecard-20261005-v2:http://127.0.0.1:5208/couch-clash/"
+    ],
+    "firstUseOfflineNoSlash": true
   },
   "deployment_prefix_tested": "/couch-clash/",
   "release_status": "candidate; no merge or deployment",
@@ -181,5 +182,5 @@
     ],
     "physicalDevice": false
   },
-  "upgrade_note": "Corrected assertion checks actual old cache names and both rendered locked/draft labels. Full-body network timeout and forced 8-second body stall fallback passed twice. Earlier failed attempts excluded."
+  "upgrade_note": "Corrected assertion checks actual old cache names and both rendered locked/draft labels. Full-body network timeout and forced 8-second body stall fallback passed twice. Earlier failed attempts excluded. Fresh-context no-slash offline navigation before any cached HTTP redirect is explicitly verified; runtime-only fixture excludes unrelated documentation hydration."
 }
