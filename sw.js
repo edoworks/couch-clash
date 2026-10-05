@@ -1,6 +1,12 @@
-const CACHE='couch-clash-public-v4:'+self.registration.scope;
-const ASSETS=['./','./index.html','./style.css','./app.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png','./icons/apple-touch-icon.png','./icons/icon.svg'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim());});
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==location.origin)return;
- e.respondWith(fetch(e.request).catch(async()=>{const c=await caches.open(CACHE);return (await c.match(e.request))||(e.request.mode==='navigate'?await c.match('./index.html'):Response.error());}));});
+const CACHE='couch-clash-mnf-20261005-v1:'+self.registration.scope;
+const ASSETS=["./", "./index.html", "./home.js", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png", "./icons/icon.svg", "./mnf-2026-10-05/", "./mnf-2026-10-05/index.html", "./mnf-2026-10-05/definitions.js", "./mnf-2026-10-05/app.js", "./mnf-2026-10-05/engagement.js", "./mnf-2026-10-05/style.css", "./legacy/", "./legacy/index.html", "./legacy/legacy.js"];
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
+self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+self.addEventListener('fetch',e=>{
+ const u=new URL(e.request.url);if(e.request.method!=='GET'||u.origin!==location.origin||!u.href.startsWith(self.registration.scope))return;
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),3000);
+ e.respondWith(fetch(e.request,{signal:controller.signal}).finally(()=>clearTimeout(timer)).catch(async()=>{const c=await caches.open(CACHE);const direct=await c.match(e.request,{ignoreSearch:true});if(direct)return direct;
+ if(e.request.mode==='navigate'){const rel=u.pathname.slice(new URL(self.registration.scope).pathname.length);return (await c.match(rel.startsWith('mnf-2026-10-05/')?'./mnf-2026-10-05/index.html':rel.startsWith('legacy/')?'./legacy/index.html':'./index.html'))||Response.error();}return Response.error();}));
+});
+
+self.addEventListener('message',e=>{if(e.data==='COUCH_CACHE_VERSION'&&e.ports[0])e.ports[0].postMessage(CACHE);});
