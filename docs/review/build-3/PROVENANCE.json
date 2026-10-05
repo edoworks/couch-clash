@@ -1,0 +1,45 @@
+{
+  "status": "partial_documentation_only",
+  "recovered_on": "2026-10-05",
+  "scope": "Selected and sanitized review documents, not exact native build source",
+  "source_document_hashes": {
+    "canonical_PRD_md": "3ed1b95ded07e4a4262162483b30b363b98b9562429094f54d437732aa42d407",
+    "original_BUILD_3_md_recorded_not_recomputed": "50c19a68c7af792f5dc883596f600883e38430c13036b774dfe3341786efa1c8"
+  },
+  "checks_performed": {
+    "both_archives_embedded_checksums_match": true,
+    "prototype_PRD_matches_recorded_canonical_PRD_hash": true,
+    "native_release_receipts_independently_inspected": false,
+    "exact_native_source_to_submitted_IPA_mapping_established": false
+  },
+  "transformations": [
+    "PRD is a selected product-requirements edition; personal and operational history excluded.",
+    "Release summary retains technical claims with explicit documentary-evidence caveats.",
+    "Private paths, artifact identifiers, personal and unrelated account/device information omitted."
+  ],
+  "files": {
+    "BUILD-3.md": {
+      "sha256": "3121d4e963dc95c390d3b6afa0d4703fe42f83a0019ebd97e0615bf875f82072",
+      "size_bytes": 3177
+    },
+    "EVIDENCE-STATUS.md": {
+      "sha256": "74e39189bfac022182444ca5262a9b40ed3da6ae2ad4c310c75570a8c7255d2c",
+      "size_bytes": 2401
+    },
+    "ONBOARDING.md": {
+      "sha256": "6d367c69a1675f9ba1e769f706d86cec82271d42e45b4101c78e80747c1fc702",
+      "size_bytes": 8655
+    },
+    "PRD.md": {
+      "sha256": "61ab82f9c11866a8f2889fc6d00d4151bc4c8435a05c0d5db5a3dd8e88c388e2",
+      "size_bytes": 18461
+    }
+  },
+  "public_repository_baseline": {
+    "repository": "edoworks/couch-clash",
+    "branch": "main",
+    "commit": "2ddd9f3a55809c786e6970a3d3bc180826267cbe",
+    "inspected_on": "2026-10-05",
+    "purpose": "Static-web onboarding only; not native build-3 equivalence"
+  }
+}
