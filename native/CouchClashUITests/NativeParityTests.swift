@@ -99,6 +99,8 @@ final class NativeParityTests: XCTestCase {
         XCTAssertTrue(label("Delayed request active").waitForExistence(timeout:15))
         link("Host another football game")
         if button("Back to setup").exists {tap("Back to setup")}
+        // Reset only the synthetic current match left by the preceding full-game test; history stays.
+        if button("Run it back").exists { tap("Run it back"); app.alerts.buttons["Continue"].tap() }
         XCTAssertTrue(label("Set the matchup.").waitForExistence(timeout:10))
         link("Back to game picker")
         XCTAssertTrue(label("Returned home recovered after cancellation").waitForExistence(timeout:15))

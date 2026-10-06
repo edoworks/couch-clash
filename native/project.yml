@@ -18,8 +18,10 @@ targets:
     platform: iOS
     sources:
       - path: CouchClash
-        excludes: [Web]
+        excludes: [Web, ForecastWeb]
       - path: CouchClash/Web
+        type: folder
+      - path: CouchClash/ForecastWeb
         type: folder
     settings:
       base:

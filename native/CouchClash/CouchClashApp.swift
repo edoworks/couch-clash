@@ -3,11 +3,27 @@ import WebKit
 
 @main
 struct CouchClashApp: App {
+    @State private var showingForecast = false
     var body: some Scene {
         WindowGroup {
             GameView()
                 .background(Color(red: 244/255, green: 235/255, blue: 216/255))
                 .preferredColorScheme(.light)
+                .safeAreaInset(edge: .top) {
+                    HStack {
+                        Spacer()
+                        Button("Forecast Review · Synthetic") { showingForecast = true }
+                            .font(.subheadline).padding(.horizontal, 16).frame(minHeight: 44)
+                            .accessibilityIdentifier("OpenForecastReview")
+                    }.background(Color(red: 244/255, green: 235/255, blue: 216/255))
+                }
+                .sheet(isPresented: $showingForecast) {
+                    NavigationStack {
+                        ForecastView().navigationTitle("Forecast Review")
+                            .navigationBarTitleDisplayMode(.inline)
+                            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showingForecast = false } } }
+                    }
+                }
         }
     }
 }

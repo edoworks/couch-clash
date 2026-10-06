@@ -1,0 +1,10 @@
+{
+  "accepted_pilot": "461c81516ec3ff069dffeae1c9618c26763a84e3",
+  "journal_key": "couch-clash-ios-forecast-journal-v1",
+  "website_store_uuid": "CCF02026-1006-4000-8000-000000000001",
+  "assets": {
+    "index.html": "57df102afd1b3424ef0d84fc8b028f41d540a46b0d7548c96dc813b1d044f95f",
+    "pilot.js": "730d6f1961dbd1260f9ec51dc08943cf149c911d9412f7f7983cd9448396d547",
+    "style.css": "a693b754ee25471c4e2f49a38954fdb4c599d67046ca34e21bf723d1c9447482"
+  }
+}
