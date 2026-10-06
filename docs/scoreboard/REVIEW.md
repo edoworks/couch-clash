@@ -1,4 +1,4 @@
-# Web scoreboard wiring — activation held
+# Web scoreboard wiring — approved activation candidate
 
 Base: reviewed/deployed backend head `4b54622e91036bd5636fce9d5a8ddd17f885041d`. This branch changes frontend wiring only. No migration, Edge source, provider credential or backend switch changes. Native build 4 remains unchanged and has no feed.
 
@@ -7,12 +7,12 @@ The picker gains a separate read-only score panel. It does not require a predict
 Configuration is explicit and contains no client key:
 
 ```js
-{ enabled: false, endpoint: 'https://zmzzmxdwvgelsjmfihza.supabase.co/functions/v1/scores' }
+{ enabled: true, endpoint: 'https://zmzzmxdwvgelsjmfihza.supabase.co/functions/v1/scores' }
 ```
 
-The flag remains false. `activation.patch` contains the exact proposed enablement plus service-worker cache-version change; it is **not applied**. Applying it requires the parent's relayed activation approval and exact final review. Database enablement belongs exclusively to the parent's connected deployment worker. Ordinary public Edge/read quota exhaustion remains a disclosed Free-service risk.
+The user approved web activation/publication at2026-10-06T01:00:37UTC. The exact enablement/cache-version change in `activation.patch` is now applied in this candidate. Publication still awaits independent final exact-head review. Database enablement belongs exclusively to the parent's connected deployment worker. Ordinary public Edge/read quota exhaustion remains a disclosed Free-service risk.
 
-Mock browser validation uses locally fulfilled candidate assets at the authorized `https://edoworks.com` origin and intercepts the score response with explicitly fictional data. It proves: disabled means zero score requests, the panel works after kickoff without starting a card, zero remains zero, no keys/query selectors/save writes, stale aging without polling, failed-refresh fallback, and the official late-entry block. This is not a production-site or real-provider browser pass.
+Mock browser validation uses locally fulfilled candidate assets at the authorized `https://edoworks.com` origin and intercepts the score response with explicitly fictional data. It proves: disabled means zero score requests, the panel works after kickoff without starting a card, zero remains zero, no keys/query selectors/save writes, stale aging without polling, failed-refresh fallback, and the official late-entry block. The separate real-service candidate browser check passed with16 games fetched2026-10-06T01:03:40.950374+00:00, actual CORS at the allowed origin, visible provisional/provider/freshness labels, DTO-matching score rows, no keys/save writes, client-failure stale fallback, and official pregame still closed. Candidate assets were fulfilled locally; this is not a production-site pass.
 
 ## Real-endpoint browser verification plan
 

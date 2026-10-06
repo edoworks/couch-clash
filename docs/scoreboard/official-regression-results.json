@@ -16,5 +16,8 @@
   ],
   "minimumControls44": true,
   "errors": [],
-  "requestsExternal": []
+  "requestsExternal": [
+    "https://zmzzmxdwvgelsjmfihza.supabase.co/functions/v1/scores"
+  ],
+  "scoreEndpointMocked": true
 }

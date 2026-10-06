@@ -1,4 +1,4 @@
-const CACHE='couch-clash-web-scoreboard-v1:'+self.registration.scope;
+const CACHE='couch-clash-web-scoreboard-active-v1:'+self.registration.scope;
 const ASSETS=["./scoreboard-boot.mjs","./scores-integration/ui/config.mjs","./scores-integration/ui/score-display.mjs","./scores-integration/src/transport.mjs","./scores-integration/src/dto.mjs","./", "./index.html", "./home.js", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png", "./icons/icon.svg", "./mnf-2026-10-05/", "./mnf-2026-10-05/index.html", "./mnf-2026-10-05/definitions.js", "./mnf-2026-10-05/app.js", "./mnf-2026-10-05/engagement.js", "./mnf-2026-10-05/style.css", "./legacy/", "./legacy/index.html", "./legacy/legacy.js"];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));

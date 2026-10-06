@@ -11,10 +11,10 @@ export function mountScores(root, { config = scoreConfig, fetcher = fetch, timeo
   root.replaceChildren(title, detail, games, refresh);
   function render(data) {
     const mock = data.source?.kind === 'mock';
-    title.textContent = data.mode === 'manual' ? 'Host scorekeeping' : data.mode === 'unavailable' ? 'Scores unavailable' : mock ? `Test scores${data.mode === 'stale' ? ' · stale' : ''}` : data.mode === 'stale' ? 'Saved scores · stale' : 'Scores · BALLDONTLIE';
-    detail.textContent = 'Display only. Your host still confirms prediction outcomes.' + (data.fetchedAt ? ` Fetched ${new Date(data.fetchedAt).toLocaleTimeString()}.` : '');
+    title.textContent = data.mode === 'manual' ? 'Host scorekeeping' : data.mode === 'unavailable' ? 'Scores unavailable' : mock ? `Test scores${data.mode === 'stale' ? ' · stale' : ''}` : data.mode === 'stale' ? 'Saved scores · BALLDONTLIE · stale' : 'Scores · BALLDONTLIE';
+    detail.textContent = (data.source?.kind === 'live' ? 'Provisional provider scores.' : 'Display only.') + ' Your host still confirms prediction outcomes.' + (data.fetchedAt ? ` Fetched ${new Date(data.fetchedAt).toLocaleString()}.` : '');
     games.replaceChildren();
-    for (const g of data.games ?? []) {
+    for (const g of [...(data.games ?? [])].sort((a,b)=>Number(b.state==='in_progress')-Number(a.state==='in_progress'))) {
       const row = document.createElement('p');
       const state = ({ in_progress: 'In progress', scheduled: 'Scheduled', final: 'Final', unknown: 'Status unknown' })[g.state] ?? g.state;
       row.textContent = `${g.away.abbreviation} ${g.away.score ?? '—'} · ${g.home.abbreviation} ${g.home.score ?? '—'} — ${state}`;

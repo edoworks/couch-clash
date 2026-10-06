@@ -1,6 +1,6 @@
 # Local score integration — not deployed
 
-This isolated candidate adds a provider-neutral score display, a BALLDONTLIE Games adapter, and a private serialized cache. It does not grade predictions, change confirmed outcomes, add shared rooms or player data, or modify the published web/native release. The browser flag defaults off; the database enabled switch is seeded false. The Edge entrypoint checks that switch only when required server configuration exists. The owner reports entering the provider key directly in encrypted project secrets; this code has not read or used it. Scores-only deployment is authorized but held for independent review.
+This isolated candidate adds a provider-neutral score display, a BALLDONTLIE Games adapter, and a private serialized cache. It does not grade predictions, change confirmed outcomes, add shared rooms or player data, or modify the published web/native release. The separately approved frontend candidate enables the public browser display; the database schema still seeds its switch false. The Edge entrypoint checks that switch only when required server configuration exists. The owner reports entering the provider key directly in encrypted project secrets; this code has not read or used it. Scores-only deployment is authorized but held for independent review.
 
 The browser preview is copied from reviewed source `be642f6059312e4fb2bbfd4ce861a0ff03b734ca`, with a separate local test storage key, no service worker, and a labeled score panel. It is a test fixture, not another released app. Run using the installed Node executable:
 
@@ -35,6 +35,6 @@ Primary contracts consulted: [BALLDONTLIE NFL Games](https://nfl.balldontlie.io/
 
 ## Review status
 
-See SECURITY-REVIEW.md for the historical exact-hash findings and REVIEW-RESPONSE.md for changes since that review. Do not deploy or merge before an independent exact-head GO. Claims use a nonlocking disabled/cooldown path and SKIP LOCKED for refresh contention. Public Edge/read quota exhaustion remains a disclosed Free-service availability risk. The unchanged app does not load these modules.
+See SECURITY-REVIEW.md for the historical exact-hash findings and REVIEW-RESPONSE.md for changes since that review. Do not deploy or merge before an independent exact-head GO. Claims use a nonlocking disabled/cooldown path and SKIP LOCKED for refresh contention. Public Edge/read quota exhaustion remains a disclosed Free-service availability risk. The frontend candidate loads only read-only browser modules on the picker; prediction logic remains unchanged.
 
 Timing contract: server work has an overall eight-second deadline, with cancellation propagated through provider/RPC transport and a check before every subsequent write/read. The browser allows ten seconds. Expired work cannot submit a late provider result; the database lease expires after 15 seconds and the durable minimum 60-second retry fence remains. Four successful 1.8-second operations were tested within the server budget.
