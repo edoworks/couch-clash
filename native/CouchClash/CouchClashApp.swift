@@ -21,6 +21,9 @@ struct GameView: UIViewRepresentable {
         config.preferences.javaScriptCanOpenWindowsAutomatically = false
         #if DEBUG
         addScoreProbe(to: config)
+        if ProcessInfo.processInfo.arguments.contains("--score-test-bridge-probe") || ProcessInfo.processInfo.arguments.contains("--score-test-lifecycle") {
+            config.userContentController.addScriptMessageHandler(context.coordinator, contentWorld: .page, name: "couchScoreTest")
+        }
         #endif
         let web = WKWebView(frame: .zero, configuration: config)
         web.navigationDelegate = context.coordinator
@@ -38,11 +41,18 @@ struct GameView: UIViewRepresentable {
         return web
     }
     func updateUIView(_ uiView: WKWebView, context: Context) {}
+    static func dismantleUIView(_ uiView: WKWebView, coordinator: Coordinator) {
+        coordinator.cancelScores()
+        uiView.stopLoading()
+        uiView.configuration.userContentController.removeAllScriptMessageHandlers()
+        uiView.navigationDelegate = nil
+        uiView.uiDelegate = nil
+    }
 
     @MainActor
     final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandlerWithReply {
         private let scoreTransport = ScoreTransport()
-        private var scoresBusy = false
+        private let scoreRequests = ScoreRequestGate()
         var assetRoot: URL?
         let externalLinks: Set<String> = [
             "https://www.seahawks.com/game-day/2026/reg-week4/seahawks-vs-chargers/",
@@ -53,6 +63,7 @@ struct GameView: UIViewRepresentable {
                      decisionHandler: @escaping @MainActor @Sendable (WKNavigationActionPolicy) -> Void) {
             guard let url = navigationAction.request.url else { decisionHandler(.cancel); return }
             if url.isFileURL, let root = assetRoot, url.standardizedFileURL.path.hasPrefix(root.path + "/") {
+                if navigationAction.targetFrame?.isMainFrame == true { scoreRequests.cancel() }
                 decisionHandler(.allow)
             } else {
                 if navigationAction.navigationType == .linkActivated, externalLinks.contains(url.absoluteString) {
@@ -63,17 +74,29 @@ struct GameView: UIViewRepresentable {
         }
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage,
                                    replyHandler: @escaping @MainActor @Sendable (Any?, String?) -> Void) {
+            #if DEBUG
+            if message.name == "couchScoreTest", let command = message.body as? String, ["count", "snapshot"].contains(command), message.frameInfo.isMainFrame,
+               let root = assetRoot, let url = message.frameInfo.request.url,
+               url.isFileURL, url.standardizedFileURL.path.hasPrefix(root.path + "/") {
+                if command == "count" { replyHandler(scoreTransport.attemptsForTesting, nil) }
+                else { replyHandler(["attempts": scoreTransport.attemptsForTesting, "cancelled": scoreTransport.cancelledAttemptsForTesting, "busy": scoreRequests.isBusy], nil) }
+                return
+            }
+            #endif
             guard message.name == "couchScores", message.body as? String == "refresh",
                   message.frameInfo.isMainFrame, let root = assetRoot,
                   message.frameInfo.request.url?.standardizedFileURL == root.appendingPathComponent("index.html"),
                   message.webView?.url?.standardizedFileURL == root.appendingPathComponent("index.html"),
-                  !scoresBusy else { replyHandler(nil, "Scores unavailable"); return }
-            scoresBusy = true
-            Task { @MainActor in
-                defer { scoresBusy = false }
-                do { replyHandler(try await scoreTransport.read(), nil) }
-                catch { replyHandler(nil, "Scores unavailable") }
+                  !scoreRequests.isBusy else {
+                #if DEBUG
+                replyHandler(nil, "score_bridge_rejected")
+                #else
+                replyHandler(nil, "Scores unavailable")
+                #endif
+                return
             }
+            let transport = scoreTransport
+            scoreRequests.start(read: { try await transport.read() }, reply: replyHandler)
         }
         func presenter(for webView: WKWebView) -> UIViewController? {
             var vc = webView.window?.rootViewController
@@ -95,6 +118,7 @@ struct GameView: UIViewRepresentable {
             alert.addAction(UIAlertAction(title: "Continue", style: .destructive) { _ in completionHandler(true) })
             vc.present(alert, animated: true)
         }
-        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { webView.reload() }
+        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { scoreRequests.cancel(); webView.reload() }
+        func cancelScores() { scoreRequests.cancel() }
     }
 }

@@ -31,5 +31,20 @@
     "Physical iPhone/iPad and VoiceOver/Larger Text pending",
     "Native host entry/locking tested; full native progression used clearly labeled fictional demo; full host settlement covered by unchanged web tests",
     "Metadata/policy/App Store answers not published or submitted"
-  ]
+  ],
+  "reviewCorrections": {
+    "finalSimulatorTests": 5,
+    "finalSimulatorFailures": 0,
+    "snapshotNegativeAndPositiveFixtures": 9,
+    "missingGuardMutationDetected": true,
+    "guardTestsRequireSpecificReasonAndZeroTransportCalls": true,
+    "deterministicPositiveControl": true,
+    "navigationCancellationAndRetry": true,
+    "actualURLSessionAbort": true,
+    "noncooperativeLateCompletionFenced": true,
+    "replyExactlyOnceIncludingTeardown": true,
+    "nativeEraseScopeCopyVerified": true,
+    "strongUpgradeEvidence": "upgrade-results.json",
+    "priorActualRunEvidence": "prior-upgrade-evidence.json"
+  }
 }

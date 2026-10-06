@@ -13,6 +13,8 @@ final class ScoreTransport {
     static let endpoint = URL(string: "https://zmzzmxdwvgelsjmfihza.supabase.co/functions/v1/scores")!
     #if DEBUG
     static var testProtocolClasses: [AnyClass]?
+    var attemptsForTesting: Int { attempts }
+    private(set) var cancelledAttemptsForTesting = 0
     #endif
     private let session: URLSession
     private var attempts = 0
@@ -32,8 +34,18 @@ final class ScoreTransport {
         session = URLSession(configuration: config, delegate: ScoreRedirectGuard(), delegateQueue: nil)
     }
     func read() async throws -> String {
+        try Task.checkCancellation()
         attempts += 1
         #if DEBUG
+        if attempts == 1 && ProcessInfo.processInfo.arguments.contains("--score-test-lifecycle") {
+            do { try await Task.sleep(for: .seconds(30)) }
+            catch { cancelledAttemptsForTesting += 1; throw error }
+        }
+        // Deterministic, explicitly mock positive control for bridge-policy/lifecycle tests.
+        if ProcessInfo.processInfo.arguments.contains("--score-test-bridge-probe") || ProcessInfo.processInfo.arguments.contains("--score-test-lifecycle") {
+            let time = ISO8601DateFormatter().string(from: Date())
+            return "{\"schema\":1,\"mode\":\"mock\",\"reason\":null,\"games\":[],\"automaticSettlement\":false,\"fetchedAt\":\"\(time)\",\"source\":{\"provider\":\"balldontlie\",\"kind\":\"mock\",\"fetchedAt\":\"\(time)\"}}"
+        }
         // Failure-only simulator controls; no fabricated live results. Absent from release builds.
         if ProcessInfo.processInfo.arguments.contains("--score-test-unavailable") ||
             (attempts > 1 && ProcessInfo.processInfo.arguments.contains("--score-test-fail-after-first")) {
@@ -52,6 +64,7 @@ final class ScoreTransport {
         }
         var data = Data()
         for try await byte in bytes {
+            try Task.checkCancellation()
             guard data.count < 262144 else { throw URLError(.dataLengthExceedsMaximum) }
             data.append(byte)
         }

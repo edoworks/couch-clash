@@ -4,7 +4,7 @@ p=argparse.ArgumentParser();p.add_argument('archive',type=Path);p.add_argument('
 app=a.archive/'Products/Applications/CouchClash.app';info=plistlib.load((app/'Info.plist').open('rb'))
 files={str(p.relative_to(app)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(app.rglob('*')) if p.is_file()}
 binary=app/'CouchClash';strings=subprocess.check_output(['strings',str(binary)],text=True)
-assert not any(t in strings for t in ['--score-test-','testProtocolClasses','DebugScoreProbe'])
+assert not any(t in strings for t in ['--score-test-','testProtocolClasses','DebugScoreProbe','couchScoreTest','score_bridge_rejected'])
 assert not (app/'embedded.mobileprovision').exists();assert not list(app.rglob('*.framework'))
 libs=subprocess.check_output(['otool','-L',str(binary)],text=True).splitlines()[1:]
 signing=subprocess.run(['codesign','-dv',str(app)],capture_output=True,text=True)

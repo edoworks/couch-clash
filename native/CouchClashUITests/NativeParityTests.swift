@@ -28,12 +28,15 @@ final class NativeParityTests: XCTestCase {
     }
     func testBridgeRejectsUntrustedCallsAndFileOrigin() {
         continueAfterFailure=false
-        app.launchArguments=["--score-test-unavailable","--score-test-bridge-probe"]
+        app.launchArguments=["--score-test-bridge-probe"]
         app.launch()
-        XCTAssertTrue(label("Arbitrary payload rejected").waitForExistence(timeout:15))
-        XCTAssertTrue(label("Subframe rejected").waitForExistence(timeout:15))
+        XCTAssertTrue(label("Positive control reached deterministic transport").waitForExistence(timeout:15))
+        XCTAssertTrue(label("Payload rejected before transport").waitForExistence(timeout:15))
+        XCTAssertTrue(label("Subframe rejected before transport").waitForExistence(timeout:15))
         XCTAssertTrue(label("Direct file-origin fetch blocked").waitForExistence(timeout:15))
         shot("native-bridge-negative-probe")
+        link("Host another football game")
+        XCTAssertTrue(label("Other main document rejected before transport").waitForExistence(timeout:15))
         app.terminate()
     }
     func testManualGameWithScoresUnavailable() {
@@ -88,6 +91,34 @@ final class NativeParityTests: XCTestCase {
         XCTAssertFalse(button("Lock 3 calls").exists)
         shot("native-host-closed-restored")
         app.terminate()
+    }
+    func testNavigationCancelsDelayedScoresAndRetries() {
+        continueAfterFailure=false
+        app.launchArguments=["--score-test-lifecycle"]
+        app.launch()
+        XCTAssertTrue(label("Delayed request active").waitForExistence(timeout:15))
+        link("Host another football game")
+        if button("Back to setup").exists {tap("Back to setup")}
+        XCTAssertTrue(label("Set the matchup.").waitForExistence(timeout:10))
+        link("Back to game picker")
+        XCTAssertTrue(label("Returned home recovered after cancellation").waitForExistence(timeout:15))
+        XCTAssertTrue(label("Test scores").exists)
+        tap("Refresh scores")
+        XCTAssertTrue(label("Test scores").exists)
+        XCTAssertTrue(button("Refresh scores").isEnabled)
+        shot("native-navigation-score-recovery")
+        app.terminate()
+    }
+    func testEraseWarningIdentifiesNativeStore() {
+        continueAfterFailure=false
+        app.launchArguments=["--score-test-unavailable"]
+        app.launch();link("Host another football game")
+        tap("Theme & local saves");tap("Saved games on this device");tap("Erase host-defined data only")
+        XCTAssertTrue(app.alerts["Confirm local change"].waitForExistence(timeout:5))
+        let text=app.alerts.staticTexts.allElementsBoundByIndex.map { $0.label }.joined(separator:" ")
+        XCTAssertTrue(text.contains("October 4 legacy app saves and October 5 official app saves are not affected"))
+        XCTAssertFalse(text.contains("native-app saves"))
+        app.alerts.buttons["Cancel"].tap();app.terminate()
     }
     func testSeedBuild4OfficialSave() {
         continueAfterFailure=false

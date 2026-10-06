@@ -6,8 +6,8 @@
   "codesignInspectionExit": 1,
   "installableOrUploadable": false,
   "webBase": "65813dde8d24f70e7743282fa3d4a2c2167d3989",
-  "appTreeSha256": "59785a0d96787039eb793338e6993151a71d8371dfce1d28dde75715ad7a0b70",
-  "binarySha256": "a66d9d8c9faa72ca5e1122ebfd2e70d990ecafe8676de7077a8ef047354fc63e",
+  "appTreeSha256": "317f8302ee19857c8df1d19d980b4da9f3c70f91e21360b8626db6daaab91462",
+  "binarySha256": "6fd3594c1ed179becc4e040a80de20d7bcedaa2470d390b734c0fc0584757183",
   "bundledThirdPartyFrameworks": [],
   "debugFailureFlagsAndInjectionHooksPresent": false,
   "embeddedProvisioningProfile": false,
@@ -47,7 +47,7 @@
     "AppIcon60x60@2x.png": "a9b88bbadd5459284396846bb3e12d88c56c65f51256be3d7dfcc96c36f6f7b9",
     "AppIcon76x76@2x~ipad.png": "bd884615b084ad12c3ab713b65abbfffe8ad882df3a1711062e0ba1819e251f2",
     "Assets.car": "6efd4cce037bd96a77b99ee13d0da42bb7cd3ec73907c4b5b6abb67a71c534e4",
-    "CouchClash": "a66d9d8c9faa72ca5e1122ebfd2e70d990ecafe8676de7077a8ef047354fc63e",
+    "CouchClash": "6fd3594c1ed179becc4e040a80de20d7bcedaa2470d390b734c0fc0584757183",
     "Info.plist": "7f6de163ef136662b404fb5a55c7fbc0e028e33279791903bb1b016f16f2fca6",
     "PkgInfo": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0",
     "PrivacyInfo.xcprivacy": "2482026aa8f1fce021c683ec9e7f275d7c37c6c367f794b954589cf11441241e",
@@ -55,7 +55,7 @@
     "Web/index.html": "4d64b5067e2ab5a360c91d2f75272a6906f776afd264100078ce94a8c71c29a4",
     "Web/legacy/index.html": "54303f266c09f4bfd950fe24175865bd2f88ca7af0796771e9b39ac8ee0998f9",
     "Web/legacy/legacy.js": "f3063ff256348c29990fac394ecfb216312c773b5dc945ee834172bdd4810fe7",
-    "Web/manual/app.js": "ca7f7bbedf544a9f984cb7b52b51ad38d07bce8c4e5be599db13440ab8632613",
+    "Web/manual/app.js": "a73945eac1280ae2b7a8f3ff41f40d39a127b420db9915e1c8c685170c6a702d",
     "Web/manual/definitions.js": "5af8196db4bc66c595c28574030309e6b6b6aacb68106d816d4cc9a4fd01287c",
     "Web/manual/engagement.js": "ef79e987a7c8f6bab6f72e9ee52b389615b5c0be771cdfae4e192e056455759b",
     "Web/manual/index.html": "aac3a0d182ad1a6b4e436322d4bbf943d901b4f1dd1ffe35bbd0db7218f1bcda",
@@ -67,5 +67,5 @@
     "Web/mnf-2026-10-05/style.css": "c282c2700d3cae94ff190d66c50281e67452a8f0bf067c2d58eedd8c5e020bc9",
     "Web/native-scores.js": "84ab7733121ce342bd71e622148f204496ca649cc19311eae2775838394eaf0b"
   },
-  "archiveTreeSha256": "ed0565cec9414231c1e823ca379e6c7e4aea3c89d01dc525be9c046c5ae612bc"
+  "archiveTreeSha256": "3dbe90f471ed92df8838260fbe699b9cf50619a27ea30679901a74ce48ca6544"
 }

@@ -26,6 +26,8 @@ for name in files:
  text=text.replace('TestFlight saves stay in the native app; this website cannot read them.','Safari saves are separate and cannot be read here.')
  text=text.replace('Check the same browser and address used for that game. HTTP and HTTPS have separate saves. TestFlight app saves stay in the native app and cannot be read here.','These are saves from this app installation. Safari and other devices have separate saves. Deleting the app can remove its saved games.')
  text=text.replace('October 4 app saves and native-app saves are not affected.','October 4 app saves are not affected.')
+ text=text.replace('October 4 and October 5 web saves and native-app saves are not affected.','October 4 legacy app saves and October 5 official app saves are not affected.')
+ text=text.replace('October 4 and October 5 web saves','October 4 legacy app saves and October 5 official app saves')
  p=dst/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text)
  manifest['assets'][name]={'source_sha256':hashlib.sha256(raw.encode()).hexdigest(),'native_sha256':hashlib.sha256(text.encode()).hexdigest()}
 # Fixed local bundle: keep reviewed score logic byte-mapped; only remove module syntax.

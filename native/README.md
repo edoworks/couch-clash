@@ -24,6 +24,7 @@ xcodebuild -project CouchClash.xcodeproj -scheme CouchClash \
 xcodebuild -project CouchClash.xcodeproj -scheme CouchClash \
   -configuration Debug -destination "platform=iOS Simulator,id=$COUCH_SIMULATOR_ID" \
   -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO \
+  -parallel-testing-enabled NO -collect-test-diagnostics never \
   -only-testing:CouchClashUITests/NativeParityTests/testBridgeRejectsUntrustedCallsAndFileOrigin test
 ```
 
@@ -65,3 +66,9 @@ native/build/score-network-test
 ```
 
 This uses a DEBUG-only URLProtocol injection point to inspect fixed requests and exercise malformed responses. No provider requests occur in that check; Release contains no injection hook. The real-service UI test is separate.
+
+## Corrective review checks
+
+The guard suite requires a successful deterministic mock transport control, a specific guard rejection and zero added transport calls for invalid payload/subframe/other main document. `tests/mutation-check.py --simulator ... --run-name guard-mutation` builds a disposable copied app without those guards and requires that exact assertion to fail after the positive control. It does not edit production source. Verbose failure diagnostics are disabled to avoid lengthy system diagnostic collection on the expected failure.
+
+`tests/score-lifecycle.swift` exercises generation fencing against a late noncooperative completion and exactly-once cancellation/teardown replies; the synthetic network test confirms actual URLSession cancellation. Run `python3 -m unittest discover -s native/tests -p test_store_snapshot.py -v` from the repository root for the fail-closed origin/nonempty-store checker fixtures. Never run the snapshot checker with Python optimization; it refuses that mode. Navigation cancels the previous native score task; an old completion cannot clear a newer request.

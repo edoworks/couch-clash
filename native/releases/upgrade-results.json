@@ -1,10 +1,40 @@
 {
   "passed": true,
-  "comparedKeys": [
-    "couch-clash-native-mnf-2026-10-05-v1",
-    "couch-clash-native-v1"
-  ],
-  "backupBefore": null,
-  "backupAfter": null,
-  "method": "Actual build4 simulator app seeded official lock; synthetic legacy fixture inserted; upgraded app in place; raw SQLite value bytes compared"
+  "origin": "file/file",
+  "originMetadataSha256": "0eda301c782661fcb79fa12b9d54661ab9585d375de6b9003d74154d950e4463",
+  "sameDatabaseIdentity": true,
+  "keys": {
+    "couch-clash-native-mnf-2026-10-05-v1": {
+      "before": {
+        "present": true,
+        "bytes": 3776,
+        "sha256": "02bf2b191dd7f9d7416c348723de5dc69ae6d9018bcfaaf596e418833e931e17"
+      },
+      "after": {
+        "present": true,
+        "bytes": 3776,
+        "sha256": "02bf2b191dd7f9d7416c348723de5dc69ae6d9018bcfaaf596e418833e931e17"
+      }
+    },
+    "couch-clash-native-v1": {
+      "before": {
+        "present": true,
+        "bytes": 1692,
+        "sha256": "a919136f0c505d7a695d58ab5c8ac069ff74d3b18c484ce92e056c23cebd2b1d"
+      },
+      "after": {
+        "present": true,
+        "bytes": 1692,
+        "sha256": "a919136f0c505d7a695d58ab5c8ac069ff74d3b18c484ce92e056c23cebd2b1d"
+      }
+    },
+    "couch-clash-native-v1:v1-backup": {
+      "before": {
+        "present": false
+      },
+      "after": {
+        "present": false
+      }
+    }
+  }
 }

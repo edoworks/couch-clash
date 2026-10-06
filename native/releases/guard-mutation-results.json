@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "mutation": "Remove payload, main-frame and root-document guards; keep fixed endpoint and busy guard",
+  "expectedTestFailure": true,
+  "failedAssertion": "Payload rejected before transport",
+  "positiveControlPassed": true,
+  "nativeProductionFilesChanged": false,
+  "testExitCode": 65,
+  "originalAppSourceSha256": "16fc534044cba4d7a5810f6bc1e64705cdda3681f1480d35f03ac151c500bda7",
+  "mutatedAppSourceSha256": "c77eb4199a35af66f93ed8403d11e05da71f3750e07402d2f94476ea5d6915d4",
+  "testSourceSha256": "311d2d56792de7a13358acc70cd1c2c8f508c771714680fca41f39e94eaefbbb"
+}

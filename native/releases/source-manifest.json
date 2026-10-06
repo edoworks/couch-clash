@@ -46,7 +46,7 @@
     },
     "manual/app.js": {
       "source_sha256": "6c84d3112b65aec353b5563c887c47238d895df0c52a010ab9b40b4e5acd8fd2",
-      "native_sha256": "ca7f7bbedf544a9f984cb7b52b51ad38d07bce8c4e5be599db13440ab8632613"
+      "native_sha256": "a73945eac1280ae2b7a8f3ff41f40d39a127b420db9915e1c8c685170c6a702d"
     },
     "manual/definitions.js": {
       "source_sha256": "5af8196db4bc66c595c28574030309e6b6b6aacb68106d816d4cc9a4fd01287c",
@@ -82,5 +82,5 @@
     }
   },
   "native_scores_sha256": "84ab7733121ce342bd71e622148f204496ca649cc19311eae2775838394eaf0b",
-  "wrapper_sha256": "5bdd698b7072cc2eb61c2f24a9ef37d34a7174cbedb53e4801840b87c108b184"
+  "wrapper_sha256": "16fc534044cba4d7a5810f6bc1e64705cdda3681f1480d35f03ac151c500bda7"
 }

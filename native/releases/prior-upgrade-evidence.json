@@ -1,0 +1,17 @@
+{
+  "method": "Earlier explicit capture/direct byte comparison, not the old equality-only snapshot helper",
+  "valuesWereNonempty": true,
+  "directComparisonPassed": true,
+  "originWasNotRecordedInPriorReport": true,
+  "official": {
+    "bytes": 3776,
+    "sha256": "c1cc9258e6109d6b0e0cc33f777feb2fa53968f3a2a8e881412994d9f81d5ad6"
+  },
+  "legacy": {
+    "bytes": 1916,
+    "sha256": "b243e2e5e39d0d3ffdfecfd2ab8bbec7b573725e8cb352a5d62b9b352e9f0bb8"
+  },
+  "backupWasAbsent": true,
+  "supersededBy": "upgrade-results.json",
+  "note": "The stronger rerun uses newly generated synthetic games; its values/hashes are different across runs but equal before/after within that rerun."
+}
