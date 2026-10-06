@@ -66,5 +66,6 @@
     "Web/mnf-2026-10-05/index.html": "12ab642437dc35baf7624a574a8b17dd1bc036e9606bb82c22a043bceb1dfc6d",
     "Web/mnf-2026-10-05/style.css": "c282c2700d3cae94ff190d66c50281e67452a8f0bf067c2d58eedd8c5e020bc9",
     "Web/native-scores.js": "84ab7733121ce342bd71e622148f204496ca649cc19311eae2775838394eaf0b"
-  }
+  },
+  "archiveTreeSha256": "ed0565cec9414231c1e823ca379e6c7e4aea3c89d01dc525be9c046c5ae612bc"
 }

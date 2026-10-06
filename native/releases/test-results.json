@@ -21,7 +21,8 @@
     "Final fresh install real service and bridge checks",
     "Pinned Git source/file links/native namespace verification",
     "Synthetic URLProtocol request inspection: fixed GET, no query/body/auth/key/cookie/Origin; HTTP/oversize/UTF8 rejected",
-    "Unsigned Release archive; no third-party frameworks, profile or DEBUG hooks"
+    "Unsigned Release archive; no third-party frameworks, profile or DEBUG hooks",
+    "Recovered baseline-build4 source independently builds as a simulator app without signing or original artifacts"
   ],
   "limitations": [
     "Simulator failure injection, not physical airplane-mode verification",
