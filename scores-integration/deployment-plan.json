@@ -15,5 +15,8 @@
     "shared-play"
   ],
   "rollback": "UPDATE cc_scores_private.cache SET enabled=false WHERE singleton=true;",
-  "release_hold": "independent security review and deployed verification before merge or app activation"
+  "release_hold": "independent security review and deployed verification before merge or app activation",
+  "runtime_switch": "cc_scores_private.cache.enabled (seeded false); no CC_SCORES_ENABLED env flag",
+  "server_request_budget_ms": 8000,
+  "browser_request_budget_ms": 10000
 }

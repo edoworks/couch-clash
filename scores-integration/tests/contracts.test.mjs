@@ -34,7 +34,7 @@ test('malformed/duplicate/wrong-scope/paginated/invalid-score input rejected', (
 });
 test('401/403/429/5xx sanitized with bounded cooldown', async () => {
   for (const [status, code] of [[401,'unauthorized'],[403,'unauthorized'],[429,'rate_limited'],[500,'upstream'],[503,'upstream']]) {
-    await assert.rejects(provider(async () => new Response(secret, { status, headers: { 'retry-after': '99999' } }))(scope), e => e.code === code && !e.message.includes(secret) && e.cooldown === 3600);
+    await assert.rejects(provider(async () => new Response(secret, { status, headers: { 'retry-after': '99999' } }))(scope), e => e.code === code && !e.message.includes(secret) && e.cooldown === 99999);
   }
 });
 test('full-body deadline, invalid JSON, header/body limits and network failure', async () => {
@@ -100,4 +100,33 @@ test('public DTO boundary rejects malformed entries/oversized arrays and removes
   for(const mutate of [x=>x.games=[null],x=>x.games=Array(101).fill(x.games[0]),x=>x.source=null,x=>x.games[0].home.score='0',x=>x.games[0].statusText='x'.repeat(81),x=>x.mode='live']){
     const x=structuredClone(s);mutate(x);assert.throws(()=>sanitizePublicScore(x));
   }
+});
+
+test('long Retry-After is never shortened; unrepresentable delay holds indefinitely', async()=>{
+ for(const [header,expected] of [['7200',7200],['999999999999999999999999999999999999999999',2147483647],['missing',60]]){
+  await assert.rejects(provider(async()=>new Response('',{status:429,headers:{'retry-after':header}}))(scope),e=>e.cooldown===expected);
+ }
+ const date=new Date(Date.now()+7200000).toUTCString();
+ await assert.rejects(provider(async()=>new Response('',{status:429,headers:{'retry-after':date}}))(scope),e=>e.cooldown>=7199&&e.cooldown<=7200);
+});
+
+test('overall request deadline prevents late provider commit even if a mock ignores abort',async()=>{
+ let finishes=0,signal;const wait=ms=>new Promise(r=>setTimeout(r,ms));
+ const cache={claim:async()=>({enabled:true,acquired:true,token:'test',...scope}),finish:async()=>{finishes++;},read:async()=>{throw Error();}};
+ const h=createScoreHandler({enabled:true,cache,timeoutMs:30,provider:async(s,o)=>{signal=o.signal;await wait(80);return normalizeGames(fixture(),scope,at,'mock');}});
+ const start=Date.now(),result=await(await h(request())).json();assert.equal(result.reason,'timeout');assert(Date.now()-start<75);assert(signal.aborted);await wait(90);assert.equal(finishes,0);
+});
+test('four successful 1.8-second operations fit explicit eight-second server budget',async()=>{
+ const wait=()=>new Promise(r=>setTimeout(r,1800)),snapshot=normalizeGames(fixture(),scope,at,'mock');
+ const cache={claim:async()=>{await wait();return {enabled:true,acquired:true,token:'test',...scope};},finish:async()=>{await wait();return true;},read:async()=>{await wait();return {enabled:true,...scope,snapshot,fetchedAt:at};}};
+ const h=createScoreHandler({enabled:true,cache,provider:async()=>{await wait();return snapshot;},now:()=>Date.parse(at)});
+ const started=Date.now();assert.equal((await(await h(request())).json()).mode,'mock');assert(Date.now()-started<8000);
+});
+test('overall abort reaches actual provider and RPC transports',async()=>{
+ for(const kind of ['provider','rpc']){
+  const c=new AbortController();let observed=false;
+  const fetcher=async(url,o)=>{o.signal.addEventListener('abort',()=>{observed=true;});return new Response(new ReadableStream({start(s){s.enqueue(new TextEncoder().encode('{'));}}));};
+  const promise=kind==='provider'?provider(fetcher)(scope,{signal:c.signal}):createRPCCache({url:'https://test-ref.supabase.co',serviceKey:secret,fetcher}).read({signal:c.signal});
+  setTimeout(()=>c.abort(),5);await assert.rejects(promise,{code:'timeout'});assert(observed);
+ }
 });

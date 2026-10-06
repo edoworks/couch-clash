@@ -18,7 +18,7 @@ const h=createScoreHandler({enabled:true,cache,provider});
 const get=async()=>await(await h(new Request('https://local.invalid/scores'))).json();
 try{
  await run(['run','--detach','--rm','--pull','never','--network','none','--tmpfs','/var/lib/postgresql/data','--name',name,'--env','POSTGRES_HOST_AUTH_METHOD=trust','postgres:17-alpine']);
- for(let i=0;i<100;i++){try{await run(['exec',name,'pg_isready','-U','postgres']);break;}catch{if(i===99)throw Error('DB not ready');await new Promise(r=>setTimeout(r,100));}}
+ for(let i=0;i<100;i++){try{await run(['exec',name,'pg_isready','-h','127.0.0.1','-U','postgres']);break;}catch{if(i===99)throw Error('DB not ready');await new Promise(r=>setTimeout(r,100));}}
  await sql(await fs.readFile(new URL('tests/db-local-bootstrap.sql',root),'utf8'),false);await sql(await fs.readFile(new URL('db/schema.sql',root),'utf8'),false);
  assert.equal((await get()).mode,'manual');assert.equal(calls,0);
  await sql('UPDATE cc_scores_private.cache SET enabled=true;',false);

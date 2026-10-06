@@ -27,5 +27,5 @@ export function normalizeGames(raw, scope, fetchedAt, kind = 'live') {
 }
 export function createProvider({ key, fetcher = fetch, now = () => new Date(), timeoutMs = 4000, kind = 'live' }) {
   if (typeof key !== 'string' || !key.trim()) throw new Error('Server provider credential is missing');
-  return async scope => normalizeGames(await boundedJSON(fetcher, scopeURL(scope), { headers: { Authorization: key, Accept: 'application/json' } }, timeoutMs), scope, now().toISOString(), kind);
+  return async (scope, { signal } = {}) => normalizeGames(await boundedJSON(fetcher, scopeURL(scope), { signal, headers: { Authorization: key, Accept: 'application/json' } }, timeoutMs), scope, now().toISOString(), kind);
 }

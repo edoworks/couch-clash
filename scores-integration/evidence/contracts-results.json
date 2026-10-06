@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "tests": 16,
+  "failures": 0,
+  "four1800msOperationsDurationMs": 7211.985375,
+  "serverBudgetMs": 8000,
+  "browserBudgetMs": 10000,
+  "lateResultCannotFinish": true,
+  "transportCancellation": true
+}

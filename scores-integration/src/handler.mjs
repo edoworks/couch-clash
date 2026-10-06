@@ -9,7 +9,7 @@ export function publicState(state, now = Date.now()) {
   const fetched = Date.parse(state.fetchedAt), stale = !Number.isFinite(fetched) || now - fetched > 120000 || now < fetched - 10000 || Boolean(state.lastError);
   return { ...base(stale ? 'stale' : s.source.kind === 'mock' ? 'mock' : 'live', ERRORS.has(state.lastError) ? state.lastError : stale ? 'age' : null), games: s.games, source: s.source, fetchedAt: state.fetchedAt };
 }
-export function createScoreHandler({ enabled = false, cache, provider, now = () => Date.now(), allowedOrigins = [] } = {}) {
+export function createScoreHandler({ enabled = false, cache, provider, now = () => Date.now(), allowedOrigins = [], timeoutMs = 8000 } = {}) {
   return async request => {
     const u = new URL(request.url), origin = request.headers.get('origin');
     const headers = { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', Vary: 'Origin' };
@@ -21,19 +21,28 @@ export function createScoreHandler({ enabled = false, cache, provider, now = () 
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
     if (request.method !== 'GET') return respond({ error: 'method_not_allowed' }, 405);
     if (!enabled || !cache || !provider) return respond(base('manual', 'disabled'));
-    let state;
-    try {
-      const claim = await cache.claim();
-      if (!claim?.enabled) return respond(base('manual', 'disabled'));
-      // Non-refresh requests need one RPC, not a read/claim/read cycle.
-      if (!claim.acquired) return respond(publicState(claim, now()));
-      if (claim.acquired) {
-        try { await cache.finish(claim.token, await provider({ season: claim.season, week: claim.week }), null, 60); }
-        catch (e) { await cache.finish(claim.token, null, ERRORS.has(e.code) ? e.code : 'unavailable', e.cooldown ?? 60); }
-      }
-      // Read the committed snapshot: an expired lease must never serve its result.
-      state = await cache.read();
-      return respond(publicState(state, now()));
-    } catch { return respond(base('unavailable', 'unavailable')); }
+    const controller = new AbortController(), options = { signal: controller.signal };
+    const active = () => { if (controller.signal.aborted) throw Error('Request expired'); };
+    let timer;
+    const deadline = new Promise(resolve => { timer = setTimeout(() => {
+      controller.abort(); resolve(respond(base('unavailable', 'timeout')));
+    }, timeoutMs); });
+    const work = (async () => {
+      try {
+        const claim = await cache.claim(options); active();
+        if (!claim?.enabled) return respond(base('manual', 'disabled'));
+        if (!claim.acquired) return respond(publicState(claim, now()));
+        let snapshot = null, error = null, cooldown = 60;
+        try { snapshot = await provider({ season: claim.season, week: claim.week }, options); }
+        catch (e) { error = ERRORS.has(e.code) ? e.code : 'unavailable'; cooldown = e.cooldown ?? 60; }
+        active();
+        await cache.finish(claim.token, snapshot, error, cooldown, options); active();
+        const state = await cache.read(options); active();
+        return respond(publicState(state, now()));
+      } catch { return respond(base('unavailable', controller.signal.aborted ? 'timeout' : 'unavailable')); }
+    })();
+    try { return await Promise.race([work, deadline]); }
+    finally { clearTimeout(timer); controller.abort(); }
+
   };
 }

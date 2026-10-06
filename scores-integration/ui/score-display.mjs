@@ -2,7 +2,7 @@ import { scoreConfig } from './config.mjs';
 import { boundedJSON } from '../src/transport.mjs';
 import { sanitizePublicScore } from '../src/dto.mjs';
 // Display only. This module never reads/writes picks, outcomes, storage or points.
-export function mountScores(root, { config = scoreConfig, fetcher = fetch, timeoutMs = 5000 } = {}) {
+export function mountScores(root, { config = scoreConfig, fetcher = fetch, timeoutMs = 10000 } = {}) {
   let last = null, busy = false;
   root.setAttribute('aria-label', 'Game score display');
   const title = document.createElement('strong'), detail = document.createElement('p'), games = document.createElement('div'), refresh = document.createElement('button');

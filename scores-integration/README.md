@@ -1,6 +1,6 @@
 # Local score integration — not deployed
 
-This isolated candidate adds a provider-neutral score display, a BALLDONTLIE Games adapter, and a private serialized cache. It does not grade predictions, change confirmed outcomes, add shared rooms or player data, or modify the published web/native release. Browser and server flags default off. The owner reports entering the provider key directly in encrypted project secrets; this code has not read or used it. Scores-only deployment is authorized but held for independent review.
+This isolated candidate adds a provider-neutral score display, a BALLDONTLIE Games adapter, and a private serialized cache. It does not grade predictions, change confirmed outcomes, add shared rooms or player data, or modify the published web/native release. The browser flag defaults off; the database enabled switch is seeded false. The Edge entrypoint checks that switch only when required server configuration exists. The owner reports entering the provider key directly in encrypted project secrets; this code has not read or used it. Scores-only deployment is authorized but held for independent review.
 
 The browser preview is copied from reviewed source `be642f6059312e4fb2bbfd4ce861a0ff03b734ca`, with a separate local test storage key, no service worker, and a labeled score panel. It is a test fixture, not another released app. Run using the installed Node executable:
 
@@ -12,12 +12,12 @@ Open `http://127.0.0.1:5210/` on this Mac. Omit `--mock` to exercise the disable
 
 The fixed upstream is `https://api.balldontlie.io/nfl/v1/games`, restricted by server configuration to a season and regular-season week. No request parameters can choose URLs, seasons, paths or RPCs. The API key is sent only server-side to that fixed host; redirects are refused. Complete-response timeout is four seconds, maximum body 256 KiB, maximum 100 games. Incomplete pagination, malformed fields and out-of-scope games are rejected. Zero scores remain zero; absent scores remain unknown. Provider status enums are used without guessing from prose. Fetch time is separate from optional provider update time.
 
-The singleton PostgreSQL lease permits one upstream attempt globally per 60 seconds, including failures. A 15-second completion lease prevents late writes. Failures retain the last good result and a sanitized persisted error; rate-limit cooldown is bounded to 60–3600 seconds. Scope changes invalidate old data without resetting the throttle. Kill switches exist at server and database layers. Public responses never contain lease tokens or credentials. Stale data is labeled; synthetic fixtures always say Test scores. UI refresh failure retains a visibly stale last-good panel. CORS restricts browser origins but is not authentication or protection from public endpoint traffic.
+The singleton PostgreSQL lease permits one upstream attempt globally per 60 seconds, including failures. A 15-second completion lease prevents late writes. Failures retain the last good result and a sanitized persisted error; rate-limit cooldown is at least 60 seconds and never shortened below Retry-After. Delays outside the PostgreSQL integer range become an indefinite hold. Scope changes invalidate old data without resetting the throttle. The seeded-false database switch is the sole runtime enable/kill control; changing it fences outstanding leases and clears cached results. Public responses never contain lease tokens or credentials. Stale data is labeled; synthetic fixtures always say Test scores. UI refresh failure retains a visibly stale last-good panel. CORS restricts browser origins but is not authentication or protection from public endpoint traffic.
 
 Validation:
 
-- Twelve Node contract tests passed: zero/null/statuses, fixed authorization/field allowlist, malformed/paginated input, 401/403/429/5xx, full-body deadline/limits, disabled/request-scope rejection, concurrency/stale data, late lease, fixed RPC transport.
-- 44 actual PostgreSQL 17.11 policy/cache checks passed, including 12 concurrent connections. Disposable container removed; no network or remote DB.
+- Sixteen Node contract tests passed: zero/null/statuses, fixed authorization/field allowlist, malformed/paginated input, 401/403/429/5xx, full-body deadline/limits, disabled/request-scope rejection, concurrency/stale data, late lease, fixed RPC transport.
+- 50 actual PostgreSQL 17.11 policy/cache checks passed, including 12 concurrent connections. Disposable container removed; no network or remote DB.
 - Actual handler + provider adapter + real PostgreSQL RPC integration passed with 20 concurrent HTTP-handler calls and exactly one mocked upstream attempt. This uses a test-only psql transport, not PostgREST.
 - Playwright at 390×844 (2× pixels) and 320×740 passed a full manual game to 800 points, final-score correction, 429/stale persistence, reload, offline existing-page fallback, keyboard refresh, kill switch and disabled default. Confirmed outcomes/picks/history remained byte-identical. Two screenshots are in `evidence/`.
 
@@ -35,4 +35,6 @@ Primary contracts consulted: [BALLDONTLIE NFL Games](https://nfl.balldontlie.io/
 
 ## Review status
 
-See SECURITY-REVIEW.md for the historical exact-hash findings and REVIEW-RESPONSE.md for changes since that review. Do not deploy or merge this draft while the admission-control gate remains unresolved. The unchanged app does not load these modules.
+See SECURITY-REVIEW.md for the historical exact-hash findings and REVIEW-RESPONSE.md for changes since that review. Do not deploy or merge before an independent exact-head GO. Claims use a nonlocking disabled/cooldown path and SKIP LOCKED for refresh contention. Public Edge/read quota exhaustion remains a disclosed Free-service availability risk. The unchanged app does not load these modules.
+
+Timing contract: server work has an overall eight-second deadline, with cancellation propagated through provider/RPC transport and a check before every subsequent write/read. The browser allows ten seconds. Expired work cannot submit a late provider result; the database lease expires after 15 seconds and the durable minimum 60-second retry fence remains. Four successful 1.8-second operations were tested within the server budget.

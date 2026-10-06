@@ -12,7 +12,7 @@ export class TestCache {
   }
   async finish(token, snapshot, error, cooldown) {
     if (!this.state.enabled || token !== this.token || this.until <= this.now()) return false;
-    if (error) { this.state.lastError = error; this.state.nextAttemptAt = new Date(this.now() + Math.min(3600, Math.max(60, cooldown)) * 1000).toISOString(); }
+    if (error) { this.state.lastError = error; this.state.nextAttemptAt = new Date(this.now() + Math.max(60, cooldown) * 1000).toISOString(); }
     else { this.state.snapshot = structuredClone(snapshot); this.state.fetchedAt = new Date(this.now()).toISOString(); this.state.lastError = null; }
     this.token = null; this.until = 0; return true;
   }

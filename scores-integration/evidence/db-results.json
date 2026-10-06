@@ -1,7 +1,7 @@
 {
   "command": "python3 scores-integration/tests/db-cache.py",
   "database": "PostgreSQL 17.11",
-  "checksPassed": 44,
+  "checksPassed": 50,
   "exitCode": 0,
   "concurrentClaimConnections": 12,
   "successfulConcurrentClaims": 1,
@@ -9,5 +9,14 @@
   "imagePull": "never",
   "containerRemoved": true,
   "remoteActions": false,
-  "limitation": "Stock local PostgreSQL only; no deployed Supabase/PostgREST or advisors validation."
+  "limitation": "Stock local PostgreSQL only; no deployed Supabase/PostgREST or advisors validation.",
+  "heldLockStates": [
+    "disabled",
+    "cooldown",
+    "eligible"
+  ],
+  "heldLockConcurrentClaimsPerState": 6,
+  "claimStatementTimeoutMs": 500,
+  "disableReenableFenced": true,
+  "longRetryAfterPreserved": true
 }

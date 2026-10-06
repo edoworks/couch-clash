@@ -28,12 +28,12 @@ REVOKE ALL ON cc_scores_private.cache FROM PUBLIC, anon, authenticated, service_
 GRANT SELECT, UPDATE ON cc_scores_private.cache TO service_role;
 INSERT INTO cc_scores_private.cache (singleton) VALUES (true);
 
--- Administrator scope edits cannot expose a previous week's snapshot or lease.
+-- Scope or enablement transitions clear snapshots and permanently fence old leases.
 -- Keep next_attempt_at intact: changing configuration cannot evade global throttling.
 CREATE FUNCTION cc_scores_private.invalidate_scope() RETURNS trigger
 LANGUAGE plpgsql SECURITY INVOKER SET search_path = '' AS $$
 BEGIN
-  IF NEW.season IS DISTINCT FROM OLD.season OR NEW.week IS DISTINCT FROM OLD.week THEN
+  IF NEW.season IS DISTINCT FROM OLD.season OR NEW.week IS DISTINCT FROM OLD.week OR NEW.enabled IS DISTINCT FROM OLD.enabled THEN
     NEW.snapshot := NULL;
     NEW.fetched_at := NULL;
     NEW.last_error := NULL;
@@ -47,7 +47,7 @@ END;
 $$;
 REVOKE ALL ON FUNCTION cc_scores_private.invalidate_scope() FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION cc_scores_private.invalidate_scope() TO service_role;
-CREATE TRIGGER invalidate_scope BEFORE UPDATE OF season, week ON cc_scores_private.cache
+CREATE TRIGGER invalidate_scope BEFORE UPDATE OF season, week, enabled ON cc_scores_private.cache
 FOR EACH ROW EXECUTE FUNCTION cc_scores_private.invalidate_scope();
 
 CREATE FUNCTION public.cc_scores_read() RETURNS jsonb
@@ -61,7 +61,17 @@ CREATE FUNCTION public.cc_scores_claim() RETURNS jsonb
 LANGUAGE plpgsql SECURITY INVOKER SET search_path = '' AS $$
 DECLARE r cc_scores_private.cache%ROWTYPE; t timestamptz; token uuid;
 BEGIN
-  SELECT * INTO STRICT r FROM cc_scores_private.cache WHERE singleton = true FOR UPDATE;
+  -- Common disabled/cooldown path is an MVCC read, with no row lock.
+  SELECT * INTO STRICT r FROM cc_scores_private.cache WHERE singleton = true;
+  t := clock_timestamp();
+  IF NOT r.enabled OR r.next_attempt_at > t OR r.lease_until > t THEN
+    RETURN public.cc_scores_read() || jsonb_build_object('acquired', false);
+  END IF;
+  -- Refresh contenders never queue behind the singleton lock.
+  SELECT * INTO r FROM cc_scores_private.cache WHERE singleton = true FOR UPDATE SKIP LOCKED;
+  IF NOT FOUND THEN
+    RETURN public.cc_scores_read() || jsonb_build_object('acquired', false);
+  END IF;
   t := clock_timestamp();
   IF NOT r.enabled OR r.next_attempt_at > t OR r.lease_until > t THEN
     RETURN public.cc_scores_read() || jsonb_build_object('acquired', false);
@@ -100,7 +110,7 @@ BEGIN
     snapshot = CASE WHEN error_code IS NULL THEN p_snapshot ELSE snapshot END,
     fetched_at = CASE WHEN error_code IS NULL THEN t ELSE fetched_at END,
     next_attempt_at = CASE WHEN error_code IS NULL THEN next_attempt_at ELSE
-      greatest(next_attempt_at, t + make_interval(secs => greatest(60, least(3600, coalesce(p_cooldown_seconds,60))))) END,
+      greatest(next_attempt_at, CASE WHEN p_cooldown_seconds = 2147483647 THEN 'infinity'::timestamptz ELSE t + make_interval(secs => greatest(60, coalesce(p_cooldown_seconds,60))) END) END,
     last_error = error_code, lease_token = NULL, lease_until = NULL,
     lease_season = NULL, lease_week = NULL WHERE singleton = true;
   RETURN true;

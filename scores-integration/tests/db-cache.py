@@ -49,7 +49,7 @@ try:
     command('run', '--detach', '--rm', '--pull', 'never', '--network', 'none', '--name', NAME,
             '--env', 'POSTGRES_HOST_AUTH_METHOD=trust', 'postgres:17-alpine')
     for _ in range(100):
-        if command('exec', NAME, 'pg_isready', '-U', 'postgres', check=False).returncode == 0:
+        if command('exec', NAME, 'pg_isready', '-h', '127.0.0.1', '-U', 'postgres', check=False).returncode == 0:
             break
         time.sleep(.1)
     else:
@@ -89,7 +89,7 @@ try:
     ok('failure code persists in reads and claims', rpc('read')['lastError']=='upstream' and rpc('claim')['lastError']=='upstream')
     ready(); token=rpc('claim')['token']; finish(token)
     ok('successful refresh clears persisted error', rpc('read')['lastError'] is None)
-    for seconds, expected in ((300,300),(-1,60),(99999,3600)):
+    for seconds, expected in ((300,300),(-1,60),(99999,99999)):
         ready(); token=rpc('claim')['token']; finish(token,None,'rate_limited',seconds)
         ok(f'429 cooldown {seconds} clamps to {expected}', value(f"SELECT next_attempt_at-clock_timestamp() BETWEEN interval '{expected-5} seconds' AND interval '{expected} seconds' FROM cc_scores_private.cache;")=='t')
     ready(); token=rpc('claim')['token']
@@ -101,6 +101,12 @@ try:
     ok('old completion cannot overwrite new lease', not finish(token))
     sql('UPDATE cc_scores_private.cache SET enabled=false;')
     ok('kill switch blocks claim and active finish', not rpc('claim')['acquired'] and not finish(new_token))
+    reset(); token=rpc('claim')['token']
+    sql('UPDATE cc_scores_private.cache SET enabled=false; UPDATE cc_scores_private.cache SET enabled=true;')
+    ok('disable reenable permanently fences old lease', not finish(token))
+    ok('disable reenable retains global throttle', not rpc('claim')['acquired'])
+    reset(); token=rpc('claim')['token']; finish(token,None,'rate_limited',2147483647)
+    ok('unrepresentable retry delay becomes durable infinity', value("SELECT next_attempt_at='infinity'::timestamptz FROM cc_scores_private.cache;")=='t' and not rpc('claim')['acquired'])
     reset(); token=rpc('claim')['token']; finish(token)
     ready(); token=rpc('claim')['token']; finish(token,None,'upstream')
     ready(); token=rpc('claim')['token']; before_scope=rpc('read')
@@ -115,6 +121,23 @@ try:
     ok('season change also invalidates snapshot and preserves cooldown', changed['snapshot'] is None and changed['nextAttemptAt']==before_scope['nextAttemptAt'])
     for snapshot, error, expected in ((None,None,'invalid_response'),('{}',None,'invalid_response'),('{"games":{}}',None,'invalid_response'),('{"games":[],"pad":"'+'x'*262144+'"}',None,'oversized'),(None,'raw-secret-provider-body','upstream')):
         reset(); token=rpc('claim')['token']; ok(f'sanitized completion {expected}', finish(token,snapshot,error) and value('SELECT last_error FROM cc_scores_private.cache;')==expected)
+    # A held singleton must not queue public disabled/cooldown/refresh contenders.
+    for mode in ('disabled','cooldown','eligible'):
+        reset()
+        if mode=='disabled': sql('UPDATE cc_scores_private.cache SET enabled=false;')
+        if mode=='cooldown': rpc('claim')
+        with concurrent.futures.ThreadPoolExecutor(max_workers=7) as pool:
+            holding=pool.submit(sql,"SET application_name='cc_scores_lock_test'; BEGIN; SELECT 1 FROM cc_scores_private.cache FOR UPDATE; SELECT pg_sleep(4); COMMIT;")
+            for _ in range(40):
+                if value("SELECT EXISTS(SELECT 1 FROM pg_stat_activity WHERE application_name='cc_scores_lock_test' AND wait_event='PgSleep');",None)=='t': break
+                time.sleep(.02)
+            else: raise AssertionError('lock barrier not reached')
+            def prompt_claim(_):
+                return json.loads(sql("SET statement_timeout='500ms'; SELECT public.cc_scores_claim();",'service_role').stdout.strip())
+            started=time.monotonic()
+            claims=list(pool.map(prompt_claim,range(6)))
+            ok(f'{mode}: six claims return without waiting for held lock', all(not c['acquired'] for c in claims) and time.monotonic()-started<3 and not holding.done())
+            holding.result()
     # Lock-boundary test: expiry is checked after waiting for a held row lock.
     reset(); token=rpc('claim')['token']
     sql("UPDATE cc_scores_private.cache SET lease_until=clock_timestamp()+interval '1 second';")
