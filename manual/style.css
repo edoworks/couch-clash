@@ -36,3 +36,6 @@ header{flex-wrap:wrap}header .tag{max-width:100%;overflow-wrap:anywhere}.settlem
 :root{--control:#817b6e}:root[data-theme="seahawks"]{--control:#7e93a5}:root[data-theme="chargers"]{--control:#819bb1}input,select{border-color:var(--control)}
 
 .manual-fixture{border:0;padding:0;margin:20px 0}.manual-fixture label{display:block;margin:12px 0}.manual-fixture input{display:block;width:100%;margin-top:6px;min-height:48px}.manual-ack{display:flex;align-items:center;gap:12px;margin:20px 0;min-height:48px}.manual-ack input{width:24px;height:24px;flex:none}.preview-label{overflow-wrap:anywhere}
+
+/* Preserve full custom team labels on narrow screens. */
+main{overflow-wrap:anywhere}.question{min-width:0}.options{grid-template-columns:repeat(2,minmax(0,1fr))}.options button{min-width:0;overflow-wrap:anywhere}

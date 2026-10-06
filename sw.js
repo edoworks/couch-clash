@@ -1,4 +1,4 @@
-const CACHE='couch-clash-evergreen-local-v2:'+self.registration.scope;
+const CACHE='couch-clash-evergreen-local-v3:'+self.registration.scope;
 const ASSETS=["./manual/","./manual/index.html","./manual/app.js","./manual/definitions.js","./manual/engagement.js","./manual/style.css","./", "./index.html", "./home.js", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png", "./icons/icon.svg", "./mnf-2026-10-05/", "./mnf-2026-10-05/index.html", "./mnf-2026-10-05/definitions.js", "./mnf-2026-10-05/app.js", "./mnf-2026-10-05/engagement.js", "./mnf-2026-10-05/style.css", "./legacy/", "./legacy/index.html", "./legacy/legacy.js"];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
