@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "activationFlagRemainsFalse": true,
+  "disabledMakesNoRequests": true,
+  "afterKickoffNoCardRequired": true,
+  "zeroScore": true,
+  "noClientKeys": true,
+  "noQuerySelectors": true,
+  "noSaveWrites": true,
+  "automaticAgeLabel": true,
+  "noAutomaticPolling": true,
+  "failureStale": true,
+  "officialPregameStillClosed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "scale": 2
+  },
+  "realProvider": false,
+  "errors": []
+}

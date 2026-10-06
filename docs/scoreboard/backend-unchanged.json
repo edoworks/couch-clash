@@ -1,0 +1,8 @@
+{
+  "scores-integration/edge/index.ts": "a3ca174860546bd84a4ab1eb758e77c8d51f239c69000d61f331ca63c743c7a0",
+  "scores-integration/src/transport.mjs": "c8618438fe99718631c3ac6d3d97905fdffe78a88cc5726b949821b8602c1732",
+  "scores-integration/src/rpc-cache.mjs": "cebf4afed91daaae2a8fac82c570ac78e9983a6821b9405000131204830e09cb",
+  "scores-integration/src/provider.mjs": "0c0d1d7131a13f4ba37e473b1d0ac7e7d848816d3ec82dd4b2ff8b42803e1492",
+  "scores-integration/src/dto.mjs": "3dcd052cf99c9b716117cda6c3f7b6738bdc7b3c52e1780b6809015d24dfd354",
+  "scores-integration/src/handler.mjs": "4775c7d2ab683bd0d5bf0a4ba83cef744fc565972b0aa78fa30520461c068d0e"
+}

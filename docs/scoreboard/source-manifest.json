@@ -1,0 +1,20 @@
+{
+  "base_scores_head": "4b54622e91036bd5636fce9d5a8ddd17f885041d",
+  "activation": false,
+  "files": {
+    "docs/scoreboard/mock-results.json": "face59f9a3d9cd494c5355748912a29a265be278ba1f8e30591132a6055ea03e",
+    "docs/scoreboard/after-kickoff-scoreboard.png": "2ef062d622dc372c0676bf3e4a616252a203a9fea538c3915cfd4a93f3c4aa6d",
+    "docs/scoreboard/backend-unchanged.json": "4db3c6dc088fb2713801340a934cdb58757fe3b9560915fd4c4d6d5042c02773",
+    "docs/scoreboard/activation.patch": "652f37547efabc4f9f2df88bcfc837e07805340d078368fd8d667c25cd22f764",
+    "docs/scoreboard/official-regression-results.json": "8df27d0202c3c7e7722528fb7639bee0f8bb1a13a9d43598ee59e13427be931d",
+    "docs/scoreboard/REVIEW.md": "f5b5f36935d5bcf1982ad89cc24518401f556ca181a4261f96b423e62c183444",
+    "tests/scoreboard/browser.mjs": "333228e09cf397093e5296af818d70e3e9e0f61dc4055a9e1adc2c80dfe0f736",
+    "tests/scoreboard/.gitignore": "fece5e911fee0763510b0e59e9e2f22c724ce923e49f05b3f45713d9eba7f408",
+    "index.html": "2609223180695810291ce7f6a0d39a750e6c594412c25866c4d205004c0d438d",
+    "sw.js": "9ac2358168710c51a20b72015427174a65088984b6afa9982de49be3ad54fb99",
+    "scoreboard-boot.mjs": "b002ab6c28412cd47c86a9a31c95e3bbd7a90dc2643a69c7be93e1d29862b369",
+    "scores-integration/ui/config.mjs": "6f3f3846c79b59cc56c13eeac1cbe29de7e70bba71ac32bdc4d17a9c9826d383",
+    "scores-integration/ui/score-display.mjs": "70b0e00e033a2dbed42b6650f2a66ddb711e56aa665e7e2c83bf24cc6cd4fcde",
+    "scores-integration/source-manifest.json": "e85164c004d409e23a1269ee2ed2eb35d21fd4b1e42dc4e2d9677211fd98470a"
+  }
+}

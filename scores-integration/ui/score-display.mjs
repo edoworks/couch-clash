@@ -3,7 +3,7 @@ import { boundedJSON } from '../src/transport.mjs';
 import { sanitizePublicScore } from '../src/dto.mjs';
 // Display only. This module never reads/writes picks, outcomes, storage or points.
 export function mountScores(root, { config = scoreConfig, fetcher = fetch, timeoutMs = 10000 } = {}) {
-  let last = null, busy = false;
+  let last = null, busy = false, freshnessTimer;
   root.setAttribute('aria-label', 'Game score display');
   const title = document.createElement('strong'), detail = document.createElement('p'), games = document.createElement('div'), refresh = document.createElement('button');
   refresh.type = 'button'; refresh.textContent = 'Refresh scores';
@@ -22,13 +22,20 @@ export function mountScores(root, { config = scoreConfig, fetcher = fetch, timeo
     }
     if (!data.games?.length && !['manual','unavailable'].includes(data.mode)) games.textContent = 'No games in the configured week.';
   }
+  function show(data) {
+    clearTimeout(freshnessTimer); render(data);
+    if (['live','mock'].includes(data.mode) && data.fetchedAt) {
+      const age=Math.max(0,Date.now()-Date.parse(data.fetchedAt));
+      freshnessTimer=setTimeout(()=>{last={...data,mode:'stale',reason:'age'};render(last);},Math.max(0,120000-age));
+    }
+  }
   async function update() {
     if (!config.enabled || busy) return;
     busy = true; refresh.disabled = true;
     try {
       const data = sanitizePublicScore(await boundedJSON(fetcher, config.endpoint, { cache: 'no-store' }, timeoutMs));
-      last = data; render(data);
-    } catch { render(last?.games.length ? { ...last, mode: 'stale' } : { mode: 'unavailable' }); }
+      last = data; show(data);
+    } catch { show(last?.games.length ? { ...last, mode: 'stale' } : { mode: 'unavailable' }); }
     finally { busy = false; refresh.disabled = false; }
   }
   refresh.hidden = !config.enabled; refresh.addEventListener('click', update);
