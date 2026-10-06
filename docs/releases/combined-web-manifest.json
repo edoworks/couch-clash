@@ -24,5 +24,5 @@
   "scores-integration/ui/score-display.mjs": "2ba9888c67c1709026f0d081d9a461aed7a4a8ff0e739dd868ed799286d3e35a",
   "scores-integration/src/transport.mjs": "c8618438fe99718631c3ac6d3d97905fdffe78a88cc5726b949821b8602c1732",
   "scores-integration/src/dto.mjs": "3dcd052cf99c9b716117cda6c3f7b6738bdc7b3c52e1780b6809015d24dfd354",
-  "sw.js": "65b7a229bc82f5d3097a362311360d0b77a510c769dcf064f4d465e72fbcd0d6"
+  "sw.js": "a0c7e7ead6999572b79df5fcd048117b9b7e304a2c2fa9568023b6a018bd25b7"
 }
