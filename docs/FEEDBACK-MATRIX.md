@@ -1,5 +1,21 @@
 # Feedback closure and remaining work
 
+## Current correction — October 6, 2026
+
+The latest explicit feedback rejects passing a phone and required updates after kickoff. Target: own-phone entry, all base picks accepted before kickoff, server lock receipt, automatic settlement only where verified data supports the question, and optional later interaction with no effect on base ranking or eligibility. No required reveal timer. See the [versioned PRD addendum](product/OWN-PHONE-PREGAME-2026-10-06.md).
+
+| Requirement | Current evidence | Next acceptance boundary |
+|---|---|---|
+| Own-phone participation | Not implemented; published gameplay remains local/shared-device | Two independently authenticated participants submit to one authoritative contest and receive server lock receipts |
+| Put the phone away after kickoff | Existing game still has three pregame and two halftime calls; do not rewrite those saved rules | New versioned base card is fully pregame; one player can remain offline until the next day without rank/eligibility penalty |
+| Online scores and less manual work | Published web includes an informational scoreboard and scores-only backend; it does not settle predictions | Verified supported outcomes settle on the server; unsupported/stale evidence remains pending, never guessed |
+| Native delivery | Build 4 is the prior release in this task record; draft PR11 context is `e38d6a3972533d3b2d1f14c23d08ec760990b478` | Corrected native artifact, privacy facts, device validation and release authorization remain separate gates |
+| Groups of groups / fantasy | Planned, not delivered | Follow the core two-phone test; eligibility, privacy, data rights and scoring remain unresolved |
+
+## Historical October 4–5 feedback matrix
+
+The matrix and analysis below are preserved as the original checkpoint. Its disconnected-feed/provider-setup/build-status claims are superseded by the current evidence above. Its proposed player-performance interaction is no longer the next product priority. Mandatory halftime handoff is not a requirement for the planned ruleset.
+
 Source: owner feedback relayed from October 4 and October 5 conversation. Status reflects evidence, not a claim that every request is fulfilled. Build 3 references describe the installed prior release; MNF/design/native work remains a candidate until its own gate passes.
 
 | Feedback and source | Implemented / tested | Remaining commitment |
