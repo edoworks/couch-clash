@@ -1,0 +1,13 @@
+{
+  "command": "python3 scores-integration/tests/db-cache.py",
+  "database": "PostgreSQL 17.11",
+  "checksPassed": 44,
+  "exitCode": 0,
+  "concurrentClaimConnections": 12,
+  "successfulConcurrentClaims": 1,
+  "network": "none",
+  "imagePull": "never",
+  "containerRemoved": true,
+  "remoteActions": false,
+  "limitation": "Stock local PostgreSQL only; no deployed Supabase/PostgREST or advisors validation."
+}

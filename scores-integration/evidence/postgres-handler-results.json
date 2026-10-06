@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "actualSQL": true,
+  "actualHandler": true,
+  "actualProviderAdapter": true,
+  "upstream": "fictional mocked fetch",
+  "concurrentRequests": 20,
+  "concurrentUpstreamAttempts": 1,
+  "failedAttemptCooldown": true,
+  "lastGoodStale": true,
+  "scopeInvalidation": true,
+  "killSwitch": true,
+  "postgrest": false
+}

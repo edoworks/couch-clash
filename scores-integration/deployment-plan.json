@@ -1,0 +1,19 @@
+{
+  "project_id": "zmzzmxdwvgelsjmfihza",
+  "plan": "Free; no upgrade",
+  "function": "scores",
+  "verify_jwt": false,
+  "public_scope": "read-only scores only",
+  "migration_name": "cc_scores_cache_v1",
+  "migration_source": "db/schema.sql",
+  "entrypoint_path": "edge/index.ts",
+  "initially_enabled": false,
+  "secret_name": "BALLDONTLIE_API_KEY",
+  "secret_value": "user-entered in encrypted Supabase secrets; never read by this workflow",
+  "do_not_deploy": [
+    "tests/db-local-bootstrap.sql",
+    "shared-play"
+  ],
+  "rollback": "UPDATE cc_scores_private.cache SET enabled=false WHERE singleton=true;",
+  "release_hold": "independent security review and deployed verification before merge or app activation"
+}
