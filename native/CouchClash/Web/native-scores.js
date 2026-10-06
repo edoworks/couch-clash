@@ -125,7 +125,7 @@ const root=document.querySelector('[data-scoreboard]');
 if(root && scoreConfig.enabled){
   root.hidden=false;
   const copy=document.querySelector('[data-score-copy]');
-  if(copy)copy.textContent='Optional score display from BALLDONTLIE. Prediction outcomes stay host-confirmed; phones do not sync.';
+  if(copy)copy.textContent='Home fetches online scores from BALLDONTLIE automatically and when you tap Refresh scores. These scores are informational; your host confirms prediction outcomes. Phones do not sync.';
   mountScores(root,{fetcher:nativeScoreFetch});
 }
 

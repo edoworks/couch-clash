@@ -28,6 +28,16 @@ for name in files:
  text=text.replace('October 4 app saves and native-app saves are not affected.','October 4 app saves are not affected.')
  text=text.replace('October 4 and October 5 web saves and native-app saves are not affected.','October 4 legacy app saves and October 5 official app saves are not affected.')
  text=text.replace('October 4 and October 5 web saves','October 4 legacy app saves and October 5 official app saves')
+ # Native-only factual disclosures; gameplay and storage logic stay unchanged.
+ text=text.replace('No account, analytics, network feed or phone-to-phone sync.', 'No account or phone-to-phone sync. Home fetches online scores automatically and when you tap Refresh scores. These scores are informational; your host confirms prediction outcomes. Player names, picks and saved games are not sent in score requests.')
+ text=text.replace('No cloud backup or phone-to-phone sync.', 'No app-operated cloud saves or phone-to-phone sync. iOS-managed backups may include app data, depending on your settings.')
+ text=text.replace('No live feed.', 'Prediction outcomes are confirmed by your host; informational online scores appear on Home.')
+ text=text.replace('No live scores.', 'Informational online scores appear on Home; they do not settle predictions.')
+ text=text.replace('No accounts or cross-device restore.', 'No app-operated account or cross-device save/restore. iOS-managed backups may include app data, depending on your settings.')
+ if name=='index.html':
+  text=text.replace('No live feed or phone-to-phone sync.', 'Home fetches online scores automatically and when you tap Refresh scores. These scores are informational; your host confirms prediction outcomes. Phones do not sync.')
+  text=text.replace('Host-defined · schedule unverified · no live data.', 'Host-defined · schedule unverified · host-confirmed outcomes.')
+  text=text.replace('</main>', '<p class="note">Support: <span style="-webkit-user-select:text;user-select:text">support@foculoom.com</span></p></main>')
  p=dst/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text)
  manifest['assets'][name]={'source_sha256':hashlib.sha256(raw.encode()).hexdigest(),'native_sha256':hashlib.sha256(text.encode()).hexdigest()}
 # Fixed local bundle: keep reviewed score logic byte-mapped; only remove module syntax.
@@ -36,7 +46,9 @@ bundle=['(()=>{\n\"use strict\";\n',(root/'score-bridge.js').read_text()]
 for name in parts:
  raw=subprocess.check_output(['git','-C',str(src),'show',expected+':'+name],text=True)
  text=re.sub(r'^import .*?;\n','',raw,flags=re.M).replace('export ','')
- if name=='scoreboard-boot.mjs':text=text.replace('mountScores(root);','mountScores(root,{fetcher:nativeScoreFetch});')
+ if name=='scoreboard-boot.mjs':
+  text=text.replace('mountScores(root);','mountScores(root,{fetcher:nativeScoreFetch});')
+  text=text.replace('Optional score display from BALLDONTLIE. Prediction outcomes stay host-confirmed; phones do not sync.', 'Home fetches online scores from BALLDONTLIE automatically and when you tap Refresh scores. These scores are informational; your host confirms prediction outcomes. Phones do not sync.')
  bundle.append(text)
  manifest['assets'][name]={'source_sha256':hashlib.sha256(raw.encode()).hexdigest(),'bundle_part_sha256':hashlib.sha256(text.encode()).hexdigest()}
 bundle.append('})();\n');native='\n'.join(bundle);(dst/'native-scores.js').write_text(native)
