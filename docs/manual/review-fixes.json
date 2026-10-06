@@ -1,0 +1,10 @@
+{
+  "eraseRequiresFreshAcknowledgement": true,
+  "maximumTeamLabelCharacters": 24,
+  "viewportWidth": 320,
+  "beforeContentWidth": 799,
+  "afterContentWidth": 320,
+  "fullLabelsPreserved": true,
+  "controlsMinimum44px": true,
+  "fullManualBrowserRerun": true
+}

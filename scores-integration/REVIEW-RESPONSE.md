@@ -1,0 +1,14 @@
+# Bounded corrective pass — exact-head review required
+
+The initial review is preserved with its original hashes. The independent reviewer supplied the nonblocking-claim design; the following implementation needs a new exact-head GO. No remote deployment has occurred.
+
+- R1: disabled and cooldown checks use ordinary MVCC reads. Only eligible refresh candidates attempt FOR UPDATE SKIP LOCKED, rechecking eligibility after acquisition. Contention returns acquired=false immediately and retains the durable 60-second fence. A deliberately held row lock was tested in disabled, cooldown and eligible states: six concurrent callers per state all returned under a 500ms SQL timeout without waiting for the lock holder. This removes avoidable lock amplification, not public invocation/read usage. The owner accepts possible Free-service interruption; no immunity, paid protection or new authentication is claimed.
+- R2: atomic claim state and fail-closed transport errors remain. Any enabled transition now clears snapshots and pending leases without clearing cooldown. A disable/re-enable cycle permanently fences the old token. Already delivered offline data cannot be retracted.
+- R3: complete reconstructed DTO and bounded browser transport remain; malformed and oversized responses preserve last-good data visibly stale.
+- R4: both numeric and HTTP-date Retry-After retain their full requested delay, with a minimum60 seconds. PostgreSQL integer-max is an indefinite-hold sentinel for delays too large to represent; it does not shorten them. Administrator intervention is required to release such a hold. Local tests cover99999 seconds and indefinite hold.
+- Enablement: removed CC_SCORES_ENABLED. Required server credential/configuration presence permits the handler to inspect the database; seeded-false database enabled is the sole runtime switch. Browser flag remains false. No deploy-time source substitution is needed.
+- Timing: one overall8-second server budget, propagated AbortSignal through RPC/provider body reads, and explicit cancellation checks before subsequent operations. Browser budget10 seconds. A late provider result cannot invoke finish after deadline. An abandoned lease expires at15 seconds and keeps its60-second durable retry fence; no background scheduler was introduced.
+
+Validation:16 Node contracts (including four actual1.8-second operations and cancellation/late-result probes),50 actual PostgreSQL checks, actual handler/provider/SQL integration with20 concurrent requests/one mocked upstream attempt, and complete mobile browser800-point game with stale/malformed/disabled/offline/reload tests. Test runner now waits for the final TCP-ready PostgreSQL server instead of the temporary initialization socket.
+
+Deployment and real-provider/PostgREST checks belong to the parent's designated connected worker after independent review. No credential value has been read, and no player/account/shared-play data or schema is introduced.

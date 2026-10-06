@@ -1,0 +1,26 @@
+{
+  "base_scores_head": "4b54622e91036bd5636fce9d5a8ddd17f885041d",
+  "activation": true,
+  "user_approval_utc": "2026-10-06T01:00:37Z",
+  "publication": "pending final exact-head review",
+  "files": {
+    "docs/scoreboard/mock-results.json": "dc9d76e378dcd5707fa62a576776a4e4302b90fbe4a1fb29d6d425d139a89e77",
+    "docs/scoreboard/real-results.json": "0cf401a363944f23fe50255bc7512d216c73785c910780185d63700850d9c66c",
+    "docs/scoreboard/after-kickoff-scoreboard.png": "2ef062d622dc372c0676bf3e4a616252a203a9fea538c3915cfd4a93f3c4aa6d",
+    "docs/scoreboard/backend-unchanged.json": "4db3c6dc088fb2713801340a934cdb58757fe3b9560915fd4c4d6d5042c02773",
+    "docs/scoreboard/activation.patch": "652f37547efabc4f9f2df88bcfc837e07805340d078368fd8d667c25cd22f764",
+    "docs/scoreboard/real-provider-scoreboard.png": "fee25b096ac3de6297c16c0a73c5d3738b46f5f3d50f8c0f85d01a0b088ae4c5",
+    "docs/scoreboard/official-regression-results.json": "a66f6dbf63e1d22e1eadd329f43e55dbc4656d6d46b83bc8bb3f189d98ee13aa",
+    "docs/scoreboard/REVIEW.md": "0aab70d69ed0b130a24c7ff45cbaacda44ee9cd5749ccaa97af01d7bf3d6a875",
+    "tests/scoreboard/browser.mjs": "ef92e2a331874510e756ddf172c2d86075d2585f843b3e06774461086ea857ba",
+    "tests/scoreboard/.gitignore": "fece5e911fee0763510b0e59e9e2f22c724ce923e49f05b3f45713d9eba7f408",
+    "index.html": "2609223180695810291ce7f6a0d39a750e6c594412c25866c4d205004c0d438d",
+    "sw.js": "871d2d4a3ea658108ed2e73b1cb6d58f445cc2d5029b3a9a960191c67ce7daa4",
+    "scoreboard-boot.mjs": "b002ab6c28412cd47c86a9a31c95e3bbd7a90dc2643a69c7be93e1d29862b369",
+    "scores-integration/ui/config.mjs": "4f518d992347e50ecaa59f0c81f0249762f6312d26eff8c47085719f7830975f",
+    "scores-integration/ui/score-display.mjs": "2ba9888c67c1709026f0d081d9a461aed7a4a8ff0e739dd868ed799286d3e35a",
+    "scores-integration/source-manifest.json": "30ab2153a748f2a09ef3d59b9b7306e5084fdf452ceebfd999ab9b98caf1d706",
+    "scores-integration/README.md": "43ff2e8a64152d9cd5b08415f0576656a45f4e4e744b3911fc46b8a8f86b77e3",
+    "tests/mnf/browser.mjs": "1c3743d09c9ecf54b624ec3b5774d43aa5dc7c777affd21df8372219d97cd8a7"
+  }
+}

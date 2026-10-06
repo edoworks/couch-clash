@@ -1,0 +1,28 @@
+{
+  "base_commit": "7a693fbe69b5f449f69e60f20733777aeacc061c",
+  "status": "draft; no merge/deployment/native upload",
+  "files": {
+    "manual/index.html": "da98474a918c0ee9f52b1b973a7f31a895920c56ac5334c90068a46b4f9876c4",
+    "manual/definitions.js": "5af8196db4bc66c595c28574030309e6b6b6aacb68106d816d4cc9a4fd01287c",
+    "manual/engagement.js": "ef79e987a7c8f6bab6f72e9ee52b389615b5c0be771cdfae4e192e056455759b",
+    "manual/style.css": "4e6ff34afca43306f0e69289e60367b9fab66a1fa940ea734964954072e3efaa",
+    "manual/app.js": "6c84d3112b65aec353b5563c887c47238d895df0c52a010ab9b40b4e5acd8fd2",
+    "tests/manual/edge-cases.mjs": "98582dfa94bf5597ce4bc71e559bc4607d07cc897df833b9f2c115fe641141a3",
+    "tests/manual/browser.mjs": "e67da0e81688d24451f53aad6c3b68e6a2c01fe5ccb9814d2a08f3b4cf0a4ea9",
+    "tests/manual/.gitignore": "fece5e911fee0763510b0e59e9e2f22c724ce923e49f05b3f45713d9eba7f408",
+    "tests/manual/definitions.test.mjs": "1320b845e3ce3105cc13ec71a4f6e3926f4e9e348c73935603493e16f409a75f",
+    "docs/manual/manual-results.json": "59ca762967c65e0c2af2f5c3582f81f122bd69c657034b0b1838ac6b6cdf96a8",
+    "docs/manual/PRD.md": "cba7177b2f1d54d8c542c2c743ad83e9ef79f7448095b1fa29d78c3cb70e5ad3",
+    "docs/manual/unchanged-fixtures.json": "2907abd379ee187fbf546b166912289f885c7473fb26771ba54c865768af206b",
+    "docs/manual/manual-setup.png": "3c9ecd9220cd9826f42870fb63c008d5e646b32125319cb380ce53a150a81413",
+    "docs/manual/manual-offline-history.png": "03c62a42043ada7e564c4ad948c77922b998192a369d7d94056094c41a3e9f2d",
+    "docs/manual/README.md": "6b0984bb3daf7d11b2b2882aab7211f8e445c18b160c4c39f25c2ff025e0c99b",
+    "docs/manual/review-fixes.json": "82ac550b2c7a6880e433f1a6ce3da8e85024ce96e63f0717202fcdc92ca5d3df",
+    "docs/manual/manual-recap.png": "614a13b0bd0b9a7003b059d2ab284c302c61bc5b8343c46edf162353519c6e65",
+    "docs/manual/NATIVE-READINESS.md": "1ab2f095647d8712ee78f4e6387d4719dba5bb0413603261654393e290a7fe21",
+    "docs/manual/official-regression-results.json": "8df27d0202c3c7e7722528fb7639bee0f8bb1a13a9d43598ee59e13427be931d",
+    "docs/manual/METADATA-DRAFT.md": "522e81ce77ea9461f2ca9fdb359e31c175d49c5a104d9f128ad538473f11c8ba",
+    "index.html": "fa0958b085a84de1e0f6b574ccd365b253b2e44a95cc678b0fef2cb3eefc484b",
+    "sw.js": "1a14de8808416dbccdc3ad9eae67184aaf5b76bac11825086aa3daff390a1732"
+  }
+}

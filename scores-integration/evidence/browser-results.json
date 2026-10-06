@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "mobile": [
+    {
+      "width": 390,
+      "height": 844,
+      "scale": 2
+    },
+    {
+      "width": 320,
+      "height": 740
+    }
+  ],
+  "fullManualGame800": true,
+  "confirmedOutcomesUnchanged": true,
+  "zeroScores": true,
+  "finalAndCorrection": true,
+  "malformedDoesNotPoisonLastGood": true,
+  "oversizedRejected": true,
+  "stale429": true,
+  "persistentCooldown": true,
+  "reload": true,
+  "offlineExistingPageFallback": true,
+  "keyboard": true,
+  "killSwitch": true,
+  "disabledFlag": true,
+  "errors": [],
+  "upstreamCalls": 4
+}

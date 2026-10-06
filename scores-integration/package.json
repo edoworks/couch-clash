@@ -1,0 +1,14 @@
+{
+  "name": "couch-clash-scores-review",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/contracts.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "test:postgres": "node tests/postgres-handler.mjs",
+    "preview": "node serve.mjs --mock"
+  },
+  "devDependencies": {
+    "playwright": "1.57.0"
+  }
+}
