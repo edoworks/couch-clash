@@ -1,4 +1,16 @@
-# Couch Clash — Monday Night Football web release
+# Couch Clash — product direction and release record
+
+## Current direction — October 6, 2026
+
+**Each person uses their own phone, completes the base prediction card before kickoff, and can put the phone away for the game.** Later interaction is optional: absence has no penalty and participation confers no base-ranking advantage. Passing a phone and returning at halftime are constraints of the existing prototype, not the desired default. There is no required reveal timer.
+
+The current requirements and smallest acceptance test are in [Own-phone, pregame-complete play — versioned PRD addendum](docs/product/OWN-PHONE-PREGAME-2026-10-06.md). This addendum supersedes prior recommendations for mandatory halftime handoffs and the old next-step priority of a player-performance interaction. It does not modify existing game rules or saves.
+
+Current capability baseline: published web main `65813dde8d24f70e7743282fa3d4a2c2167d3989` provides local shared-device play, host-confirmed predictions and a separate informational online scoreboard. The scores-only backend does not own picks, rooms, identities or settlements. Native PR11 at `e38d6a3972533d3b2d1f14c23d08ec760990b478` remains a draft, not a released own-phone implementation. No Apple identity, shared rooms or synchronized personal cards are delivered.
+
+## Historical October 5 web-release PRD
+
+The following record describes that release's original scope and research state. Statements such as “no feed connected,” pending provider setup, Build 3 status and publication gates below are historical, not current capability claims. Use the addendum above for current direction and the [combined web release record](docs/releases/combined-web.md) for the shipped integration. Preserve this history to avoid silently redefining old games.
 
 Owner: Tom, authorized conditional takeover on October 5, 2026 after the coordination checkpoint. This is a bounded web implementation. Native Build 3 and the separate shared-play project remain unchanged. The independent read-only Build 3 review remains separate.
 
