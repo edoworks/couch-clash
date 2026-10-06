@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "webBase": "65813dde8d24f70e7743282fa3d4a2c2167d3989",
+  "candidate": "1.0 (5)",
+  "simulator": "iPhone17Pro / iOS26.5",
+  "toolchain": {
+    "xcode": "27.0 (27A266a)",
+    "swift": "6.4",
+    "xcodegen": "2.44.1"
+  },
+  "checks": [
+    "Build4 actual simulator official-demo lock seed",
+    "Byte-identical official and legacy save keys after in-place upgrade and all gameplay tests",
+    "Native real-service display; provider/provisional/fetched-time labels",
+    "Refresh failure retains stale; initial failure unavailable",
+    "iOS WKWebView direct file-origin fetch blocked",
+    "Main bridge rejects arbitrary payload and subframe",
+    "Full fictional host-defined game shared-zero podium, archive and relaunch",
+    "Native team editing by semantic label, fresh acknowledgement, locked picks, host close, relaunch",
+    "Legacy saved drafts/finals read-only privacy controls",
+    "Final fresh install real service and bridge checks",
+    "Pinned Git source/file links/native namespace verification",
+    "Synthetic URLProtocol request inspection: fixed GET, no query/body/auth/key/cookie/Origin; HTTP/oversize/UTF8 rejected",
+    "Unsigned Release archive; no third-party frameworks, profile or DEBUG hooks"
+  ],
+  "limitations": [
+    "Simulator failure injection, not physical airplane-mode verification",
+    "No final signed/uploadable artifact",
+    "No Xcode-generated privacy report yet; manifest not approved for connected behavior",
+    "Physical iPhone/iPad and VoiceOver/Larger Text pending",
+    "Native host entry/locking tested; full native progression used clearly labeled fictional demo; full host settlement covered by unchanged web tests",
+    "Metadata/policy/App Store answers not published or submitted"
+  ]
+}

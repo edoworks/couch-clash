@@ -1,0 +1,40 @@
+name: CouchClash
+options:
+  bundleIdPrefix: com.foculoom
+  deploymentTarget:
+    iOS: "18.0"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "5"
+    DEVELOPMENT_TEAM: H8MJMBTFVP
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+targets:
+  CouchClash:
+    type: application
+    platform: iOS
+    sources:
+      - path: CouchClash
+        excludes: [Web]
+      - path: CouchClash/Web
+        type: folder
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.foculoom.couchclash
+        INFOPLIST_FILE: CouchClash/Info.plist
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MACCATALYST: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+  CouchClashUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [CouchClashUITests]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.foculoom.couchclash.uitests
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: CouchClash

@@ -1,0 +1,86 @@
+{
+  "web_commit": "65813dde8d24f70e7743282fa3d4a2c2167d3989",
+  "legacy_key": "couch-clash-native-v1",
+  "new_key": "couch-clash-native-mnf-2026-10-05-v1",
+  "source_read_from_pinned_git_blobs": true,
+  "assets": {
+    "index.html": {
+      "source_sha256": "5e3b543eafe36be6a6a98b4797cdb8f713ca060c22d13e22bafa31ba7aff9d7b",
+      "native_sha256": "4d64b5067e2ab5a360c91d2f75272a6906f776afd264100078ce94a8c71c29a4"
+    },
+    "home.js": {
+      "source_sha256": "ba1f3468555074574479f220081bbf14ead688e0519bf7378e7af60e16ed7071",
+      "native_sha256": "212672066df71312da33235c6ac890b48126ca405af45e752dae18b14c7190e3"
+    },
+    "legacy/index.html": {
+      "source_sha256": "a208ec3f02253ca2e21e12e2aba5281567abcb01937f633ccec286eaa0b4de62",
+      "native_sha256": "54303f266c09f4bfd950fe24175865bd2f88ca7af0796771e9b39ac8ee0998f9"
+    },
+    "legacy/legacy.js": {
+      "source_sha256": "0e9064fbbf9439c739c1f9298e8aedf14628f0f9eb4fc1c61f3cabdcd0870c6a",
+      "native_sha256": "f3063ff256348c29990fac394ecfb216312c773b5dc945ee834172bdd4810fe7"
+    },
+    "mnf-2026-10-05/index.html": {
+      "source_sha256": "bf808f698b5176c6900c0650be48ce68554cc907665da903d76d59788c055411",
+      "native_sha256": "12ab642437dc35baf7624a574a8b17dd1bc036e9606bb82c22a043bceb1dfc6d"
+    },
+    "mnf-2026-10-05/app.js": {
+      "source_sha256": "7ea7622747b5ab94de69b1cd1b43a3d8f3d1a1c56edf96e50fd6799aa33e971b",
+      "native_sha256": "08062398027c143ea81fd4a5ac9f67097a1bea17add4ae0b3d5715974dea29f9"
+    },
+    "mnf-2026-10-05/engagement.js": {
+      "source_sha256": "d32d26c71877809f5568374b5c58012321836701e176a7137cdfbdbe34be37dc",
+      "native_sha256": "d32d26c71877809f5568374b5c58012321836701e176a7137cdfbdbe34be37dc"
+    },
+    "mnf-2026-10-05/definitions.js": {
+      "source_sha256": "cf6a27098e94456329e432282192b54835fee7dbf3208a80bb193d97c1c5cca6",
+      "native_sha256": "cf6a27098e94456329e432282192b54835fee7dbf3208a80bb193d97c1c5cca6"
+    },
+    "mnf-2026-10-05/style.css": {
+      "source_sha256": "c282c2700d3cae94ff190d66c50281e67452a8f0bf067c2d58eedd8c5e020bc9",
+      "native_sha256": "c282c2700d3cae94ff190d66c50281e67452a8f0bf067c2d58eedd8c5e020bc9"
+    },
+    "manual/index.html": {
+      "source_sha256": "da98474a918c0ee9f52b1b973a7f31a895920c56ac5334c90068a46b4f9876c4",
+      "native_sha256": "aac3a0d182ad1a6b4e436322d4bbf943d901b4f1dd1ffe35bbd0db7218f1bcda"
+    },
+    "manual/app.js": {
+      "source_sha256": "6c84d3112b65aec353b5563c887c47238d895df0c52a010ab9b40b4e5acd8fd2",
+      "native_sha256": "ca7f7bbedf544a9f984cb7b52b51ad38d07bce8c4e5be599db13440ab8632613"
+    },
+    "manual/definitions.js": {
+      "source_sha256": "5af8196db4bc66c595c28574030309e6b6b6aacb68106d816d4cc9a4fd01287c",
+      "native_sha256": "5af8196db4bc66c595c28574030309e6b6b6aacb68106d816d4cc9a4fd01287c"
+    },
+    "manual/engagement.js": {
+      "source_sha256": "ef79e987a7c8f6bab6f72e9ee52b389615b5c0be771cdfae4e192e056455759b",
+      "native_sha256": "ef79e987a7c8f6bab6f72e9ee52b389615b5c0be771cdfae4e192e056455759b"
+    },
+    "manual/style.css": {
+      "source_sha256": "4e6ff34afca43306f0e69289e60367b9fab66a1fa940ea734964954072e3efaa",
+      "native_sha256": "4e6ff34afca43306f0e69289e60367b9fab66a1fa940ea734964954072e3efaa"
+    },
+    "scores-integration/ui/config.mjs": {
+      "source_sha256": "4f518d992347e50ecaa59f0c81f0249762f6312d26eff8c47085719f7830975f",
+      "bundle_part_sha256": "3098a548bd96f4b78a2cdf0768d792d30a8e5c48bbf16708deb2dec22bb39377"
+    },
+    "scores-integration/src/transport.mjs": {
+      "source_sha256": "c8618438fe99718631c3ac6d3d97905fdffe78a88cc5726b949821b8602c1732",
+      "bundle_part_sha256": "ad4e8b37563b0678e423365e015fb440a49fe007a14dc964cce4e14d4aba85fe"
+    },
+    "scores-integration/src/dto.mjs": {
+      "source_sha256": "3dcd052cf99c9b716117cda6c3f7b6738bdc7b3c52e1780b6809015d24dfd354",
+      "bundle_part_sha256": "824fc93a3cf31de06ef4b354e157e63975bb0085d8b56b3cea9d1d4ad4a5b9d0"
+    },
+    "scores-integration/ui/score-display.mjs": {
+      "source_sha256": "2ba9888c67c1709026f0d081d9a461aed7a4a8ff0e739dd868ed799286d3e35a",
+      "bundle_part_sha256": "fee500afe60d575d0a32537e48043a8f281430447e07a47412928869521dc272"
+    },
+    "scoreboard-boot.mjs": {
+      "source_sha256": "b002ab6c28412cd47c86a9a31c95e3bbd7a90dc2643a69c7be93e1d29862b369",
+      "bundle_part_sha256": "05696419481c9d6cbe03c05694b2ba65e4bd960446ff5eb2e6347954a3b8f0d0"
+    }
+  },
+  "native_scores_sha256": "84ab7733121ce342bd71e622148f204496ca649cc19311eae2775838394eaf0b",
+  "wrapper_sha256": "5bdd698b7072cc2eb61c2f24a9ef37d34a7174cbedb53e4801840b87c108b184"
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "comparedKeys": [
+    "couch-clash-native-mnf-2026-10-05-v1",
+    "couch-clash-native-v1"
+  ],
+  "backupBefore": null,
+  "backupAfter": null,
+  "method": "Actual build4 simulator app seeded official lock; synthetic legacy fixture inserted; upgraded app in place; raw SQLite value bytes compared"
+}
