@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "stagedFilesChecked": 71,
+  "scope": "native/ only",
+  "privateAbsolutePaths": false,
+  "credentialPatternsFound": false,
+  "certificatesProfilesKeysArchivesUserSavesDerivedData": false,
+  "binaryFiles": "original artwork and synthetic-test PNG screenshots only",
+  "note": "Heuristic credential scan plus explicit staged-file/type review; not a guarantee against every possible secret format."
+}
