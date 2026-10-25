@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "declared-core",
+      "files": [
+        "mnf-2026-10-05/definitions.js"
+      ],
+      "checks": [
+        "store-sdk",
+        "browser-effects"
+      ]
+    }
+  ],
+  "review_gaps": [
+    "The guard covers fixture definitions only. App orchestration still mixes behavior and browser effects; native source parity is unverified. Live provider observations must not silently rewrite confirmed local outcomes.",
+    "Lexical coverage is limited to declared files; review new files, imports and transitive dependencies on every relevant PR."
+  ]
+}
